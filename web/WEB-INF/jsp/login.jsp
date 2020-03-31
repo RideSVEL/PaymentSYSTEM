@@ -6,17 +6,8 @@
 <head>
     <title><fmt:message key="jsp.login"/></title>
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
-    <style>
-        .login-page {
-            text-align: center;
-            position: relative;
-            width: 250px;
-            padding: 10% 0 0;
-            margin: 0 auto;
-        }
-    </style>
 </head>
-<body style="background: linear-gradient(to bottom left, #af3c52 ,#0ea4ac);">
+<body class="background-gradient">
 
 <%-- HEADER --%>
 <c:set var="activeLogin" value="active" scope="page" />

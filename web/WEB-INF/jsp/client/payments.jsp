@@ -8,11 +8,11 @@
     <title><fmt:message key="jsp.header.payments"/></title>
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
-<body style="background: linear-gradient(to bottom left, #af3c52 ,#0ea4ac);">
+<body class="background-gradient">
 <c:set var="activePayments" value="active" scope="page" />
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <br>
-<div id="main-container" class="container-fluid">
+<div id="main-container" class="container-fluid p5percent">
     <form id="sorting_payments" action="controller" method="post">
         <input type="hidden" name="command" value="showPayments"/>
         <select name="sorting">

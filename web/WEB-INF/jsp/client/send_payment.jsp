@@ -16,7 +16,7 @@
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
 
-<body style="background: linear-gradient(to bottom left, #af3c52 ,#0ea4ac);">
+<body class="background-gradient">
 <table id="main-container">
 
     <%@ include file="/WEB-INF/jspf/header.jspf" %>

@@ -1,7 +1,6 @@
 .login-page {
     color: #ffffff;
     text-align: center;
-    text-shadow: #555 3px 2px 0;
     position: relative;
     width: 250px;
     padding: 10% 0 0;
@@ -9,6 +8,15 @@
 }
 
 .background-gradient {
-    background: linear-gradient(to bottom left, #3a33af ,#0ea4ac);
+    background: linear-gradient(to bottom left, #af3c52, #0ea4ac);
+}
+
+.p0 {
+    padding: 0;
+}
+
+.p5percent {
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
