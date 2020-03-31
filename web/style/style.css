@@ -1,0 +1,14 @@
+.login-page {
+    color: #ffffff;
+    text-align: center;
+    text-shadow: #555 3px 2px 0;
+    position: relative;
+    width: 250px;
+    padding: 10% 0 0;
+    margin: 0 auto;
+}
+
+.background-gradient {
+    background: linear-gradient(to bottom left, #3a33af ,#0ea4ac);
+}
+
