@@ -15,7 +15,7 @@
     <title><fmt:message key="jsp.header.income"/></title>
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
-<body class="background-gradient">
+<body>
 <c:set var="activeIncome" value="active" scope="page" />
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <br>
@@ -48,7 +48,7 @@
                 <th scope="col"><fmt:message key="jsp.sender"/></th>
                 <th scope="col"><fmt:message key="jsp.number.payments"/></th>
                 <th scope="col"><fmt:message key="jsp.date"/></th>
-                <th scope="col"><fmt:message key="jsp.money"/></th>
+                <th scope="col"><fmt:message key="jsp.money"/> UAN</th>
             </tr>
             </thead>
             <tbody>

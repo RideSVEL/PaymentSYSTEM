@@ -5,7 +5,7 @@
   <title>Payment SYSTEM</title>
   <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
-<body class="background-gradient">
+<body>
 <header>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 </header>
@@ -18,10 +18,10 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="img/slide3.png" class="d-block w-100" alt="...">
+      <img src="img/slide1.png" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="img/slide1.png" class="d-block w-100" alt="...">
+      <img src="img/slide2.png" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
       <img src="img/slide3.png" class="d-block w-100" alt="...">

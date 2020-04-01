@@ -11,15 +11,6 @@
 <head>
     <title><fmt:message key='jsp.header.Settings'/> &bull; PAYMENT SYSTEM</title>
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
-    <style>
-        .login-page {
-            text-align: center;
-            position: relative;
-            width: 250px;
-            padding: 10% 0 0;
-            margin: 0 auto;
-        }
-    </style>
 </head>
 
 

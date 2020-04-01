@@ -104,7 +104,7 @@
                 confirmBalance checkPayment blockUserCard sendPayment
                 actionBlock requestUserCardUnblock showClientRequest
                 showPayments showIncome replenishBalance addBalance
-                confirmBalance commandCard createCard deleteDefer</param-value>
+                confirmBalance commandCard createCard deleteDefer getPdf</param-value>
         </init-param>
         <init-param>
             <param-name>common</param-name>

@@ -1,9 +1,19 @@
 .login-page {
-    color: #ffffff;
+    color: #06051b;
     text-align: center;
     position: relative;
     width: 250px;
     padding: 10% 0 0;
+    margin: 0 auto;
+
+}
+
+.register-page {
+    color: #06051b;
+    text-align: center;
+    position: relative;
+    width: 250px;
+    padding: 7% 0 0;
     margin: 0 auto;
 }
 
@@ -20,3 +30,117 @@
     padding-right: 5%;
 }
 
+.form-login {
+    position: relative;
+    width: 330px;
+    height: 330px;
+    top: 50%;
+    left: 50%;
+    margin-top: -220px;
+    margin-left: -170px;
+    background: #ffffff;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+    -webkit-animation-name: bounceIn;
+    -webkit-animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: bounceIn;
+    -moz-animation-fill-mode: both;
+    -moz-animation-duration: 1s;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-timing-function: linear;
+    animation-name: bounceIn;
+    animation-fill-mode: both;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+}
+
+.form-register {
+    position: relative;
+    width: 330px;
+    height: 470px;
+    top: 50%;
+    left: 50%;
+    margin-top: -260px;
+    margin-left: -170px;
+    background: #ffffff;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+    -webkit-animation-name: bounceIn;
+    -webkit-animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: bounceIn;
+    -moz-animation-fill-mode: both;
+    -moz-animation-duration: 1s;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-timing-function: linear;
+    animation-name: bounceIn;
+    animation-fill-mode: both;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+}
+
+.requests {
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 3.2em;
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: -3px;
+    line-height: 1;
+    text-shadow: #555 3px 2px 0;
+    position: relative;
+}
+
+.error {
+    color: #ff0900;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.6em;
+    text-align: center;
+    font-weight: 800;
+    line-height: 1;
+    text-shadow: #555 3px 2px 0;
+    position: relative;
+}
+
+body {
+    background: -webkit-linear-gradient(to bottom left, #af3c52, #0ea4ac);
+    background: -moz-linear-gradient(to bottom left, #af3c52, #0ea4ac);
+    background: -o-linear-gradient(to bottom left, #af3c52, #0ea4ac);
+    background: linear-gradient(to bottom left, #af3c52, #0ea4ac);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*.font-style {*/
+/*    font-family: 'Open Sans', sans-serif;*/
+/*    color: #ffffff;*/
+/*    text-decoration: none;*/
+/*    text-transform: uppercase;*/
+/*    font-size: 2.4em;*/
+/*    text-align: center;*/
+/*    font-weight: 800;*/
+/*    letter-spacing: -1px;*/
+/*    line-height: 1;*/
+/*    text-shadow: #555 3px 2px 0;*/
+/*}*/
+
+/*.font-position-login {*/
+/*    position: relative;*/
+/*    top: 20%;*/
+/*}*/
+
+/*.font-position-register {*/
+/*    position: relative;*/
+/*    top: 10%;*/
+/*}*/

@@ -45,6 +45,7 @@ public class CommandContainer {
         commands.put("createCard", new CreateCardCmd());
         commands.put("commandCard", new CardCmd());
 		commands.put("deleteDefer", new DeleteDeferPaymentCmd());
+		commands.put("getPdf", new GetPDFCmd());
 
         // admin commands
         commands.put("listUsers", new ListUsersCmd());

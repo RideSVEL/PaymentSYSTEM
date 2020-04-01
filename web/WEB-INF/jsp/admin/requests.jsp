@@ -8,12 +8,12 @@
     <title><fmt:message key="jsp.cards"/></title>
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
-<body class="background-gradient">
+<body>
 <c:set var="activeRequests" value="active" scope="page" />
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <br><br>
 <c:if test="${countAdmin <= 0}">
-    <h2>Don`t have request`s</h2>
+    <p class="requests">Don`t have request`s</p>
 </c:if>
 <c:if test="${countAdmin > 0}">
 

@@ -14,7 +14,7 @@
     <title><fmt:message key="jsp.cards"/></title>
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
-<body class="background-gradient">
+<body>
 <c:set var="activeCards" value="active" scope="page" />
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <br>

@@ -15,7 +15,7 @@
     <title><fmt:message key="jsp.payment"/></title>
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
-<body class="background-gradient">
+<body>
 <table id="main-container">
 
     <%@ include file="/WEB-INF/jspf/header.jspf" %>

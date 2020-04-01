@@ -10,20 +10,12 @@
 	<%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
 
-<body class="background-gradient">
-
-	<table id="main-container">
-
-		<%-- HEADER --%>
-		<%@ include file="/WEB-INF/jspf/header.jspf"%>
-		<%-- HEADER --%>
-
-		<tr >
-			<td class="content">
-			<%-- CONTENT --%>
-				
+<body>
+<%@ include file="/WEB-INF/jspf/header.jspf"%>
+	<div id="main-container" class="container-fluid">
+				<br>
 				<h2 class="error">
-					<fmt:message key="jsp.the_following_error"/>
+					<fmt:message key="jsp.the_following_error"/>:
 				</h2>
 			
 				<%-- this way we obtain an information about an exception (if it has been occurred) --%>
@@ -54,6 +46,6 @@
 
 		<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 		
-	</table>
+	</div>
 </body>
 </html>

@@ -14,7 +14,7 @@
     <title><fmt:message key="jsp.cards"/></title>
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
-<body style="background: linear-gradient(to bottom left, #af3c52 ,#0ea4ac);">
+<body>
 <table id="main-container">
 
     <%@ include file="/WEB-INF/jspf/header.jspf" %>

@@ -8,7 +8,7 @@
     <title><fmt:message key="jsp.header.payments"/></title>
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
-<body class="background-gradient">
+<body>
 <c:set var="activePayments" value="active" scope="page" />
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <br>
@@ -56,7 +56,7 @@
                     <td>${payment.cardDestinationNumber}</td>
                     <td>${payment.id}</td>
                     <td>${payment.date}</td>
-                    <td>${payment.money}</td>
+                    <td>${payment.money} UAN</td>
                     <td>${payment.balance}</td>
                     <td>
                         <c:if test="${payment.statusId == 0}">
@@ -82,7 +82,7 @@
                         </c:if>
                         <c:if test="${payment.statusId == 1}">
                             <form id="block_card" action="controller" method="post">
-                                <input type="hidden" name="command" value="getPDF"/>
+                                <input type="hidden" name="command" value="getPdf"/>
                                 <input type="hidden" name="payment_id" value="${payment.id}"/>
                                 <input class="btn btn-info" type="submit" value="<fmt:message key="jsp.get.pdf"/>"/>
                             </form>
