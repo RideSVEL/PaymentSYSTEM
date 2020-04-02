@@ -15,42 +15,28 @@
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
 <body>
-<table id="main-container">
-
-    <%@ include file="/WEB-INF/jspf/header.jspf" %>
-
-    <tr>
-        <td class="content">
-            <%-- CONTENT --%>
-            <br>
-            <form id="sorting_cards" action="controller" method="post">
-                <input type="hidden" name="command" value="addBalance"/>
-                <a><fmt:message key="jsp.select_card_for_payment"/></a>
-                <select name="card_id">
-                    <c:forEach var="card" items="${cards}">
-                        <c:if test="${card.activityId == 0}">
-                            <option value="${card.id}">${card.number}</option>
-                        </c:if>
-                    </c:forEach>
-                </select>
-                <br><br>
-                <a><fmt:message key="jsp.max_sum"/></a>
-                <fieldset>
-                    <legend><fmt:message key="jsp.sum"/></legend>
-                    <input name="sum" type="number"/><br/>
-                </fieldset>
-                <br>
-                <input type="submit" value="<fmt:message key="jsp.accept"/>">
-            </form>
-            <br>
-
-
-            <%-- CONTENT --%>
-        </td>
-    </tr>
-
-    <%@ include file="/WEB-INF/jspf/footer.jspf" %>
-
-</table>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
+<div class="login-page">
+    <br>
+    <form id="sorting_cards" action="controller" method="post">
+        <input type="hidden" name="command" value="addBalance"/>
+            <label class="text-white" for="cards"><fmt:message key="jsp.select_card_for_payment"/></label>
+            <select name="card_id" id="cards" class="form-control shadow-lg">
+                <c:forEach var="card" items="${cards}">
+                    <c:if test="${card.activityId == 0}">
+                        <option value="${card.id}">${card.number}</option>
+                    </c:if>
+                </c:forEach>
+            </select>
+        <br>
+        <div class="form-group">
+            <a class="text-white"><fmt:message key="jsp.max_sum"/></a>
+            <label class="text-white" for="sum"><fmt:message key="jsp.sum"/></label>
+            <input class="form-control shadow-lg" id="sum" name="sum" type="number" placeholder="<fmt:message key="jsp.sum"/>"/>
+        </div>
+        <input class="btn btn-success shadow-lg" type="submit" value="<fmt:message key="jsp.accept"/>">
+    </form>
+</div>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>
 </body>
 </html>

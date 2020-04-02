@@ -55,29 +55,29 @@
                             <input type="hidden" name="sorting" value="name"/>
                             <input type="hidden" name="order" value="ascending"/>
                             <input type="hidden" name="filter" value="all"/>
-                            <input class="dropdown-item" type="submit" value="<fmt:message key="jsp.cards"/>"/>
+                            <input class="dropdown-item text-white" type="submit" value="<fmt:message key="jsp.cards"/>"/>
                         </form>
                         <form action="controller" method="post">
                             <input type="hidden" name="command" value="commandCard"/>
-                            <input class="dropdown-item" type="submit" value="<fmt:message key="jsp.create.card"/>"/>
+                            <input class="dropdown-item text-white" type="submit" value="<fmt:message key="jsp.create.card"/>"/>
                         </form>
                         <form action="controller" method="post">
                             <input type="hidden" name="command" value="replenishBalance"/>
-                            <input class="dropdown-item" type="submit" value="<fmt:message key="jsp.add.balance"/>"/>
+                            <input class="dropdown-item text-white" type="submit" value="<fmt:message key="jsp.add.balance"/>"/>
                         </form>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="controller?command=showPayments">
+                        <a class="dropdown-item text-white" href="controller?command=showPayments">
                             <fmt:message key="jsp.header.payments"/></a>
-                        <a data-toggle="tooltip" data-placement="bottom" title="Income payments on this account" class="dropdown-item" href="controller?command=showIncome">
+                        <a data-toggle="tooltip" data-placement="bottom" title="Income payments on this account" class="dropdown-item text-white" href="controller?command=showIncome">
                             <fmt:message key="jsp.header.income"/></a>
                         <form action="controller" method="post">
                             <input type="hidden" name="command" value="sendPayment"/>
-                            <input data-toggle="tooltip" data-placement="bottom" title="Sending payment" class="dropdown-item" type="submit" value="<fmt:message key="jsp.send.payment"/>"/>
+                            <input data-toggle="tooltip" data-placement="bottom" title="Sending payment" class="dropdown-item text-white" type="submit" value="<fmt:message key="jsp.send.payment"/>"/>
                         </form>
                         <div class="dropdown-divider"></div>
                         <form action="controller" method="post">
                             <input type="hidden" name="command" value="showClientRequest"/>
-                            <button  class="dropdown-item" type="submit">
+                            <button  class="dropdown-item text-white" type="submit">
                                 <fmt:message key="jsp.my.requests"/> <span class="badge badge-pill badge-secondary">${count}</span>
                             </button>
                         </form>

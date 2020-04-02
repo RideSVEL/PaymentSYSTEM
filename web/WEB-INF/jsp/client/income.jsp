@@ -23,22 +23,29 @@
 
     <form id="sorting_payments" action="controller" method="post">
         <input type="hidden" name="command" value="showIncome"/>
-        <select name="sorting">
-            <option value="date"><fmt:message key="jsp.sorting.date"/></option>
-            <option value="number"><fmt:message key="jsp.number"/></option>
-        </select>
-        <select name="order">
-            <option value="ascending"><fmt:message key="jsp.sorting.ascending"/></option>
-            <option value="descending"><fmt:message key="jsp.sorting.descending"/></option>
-        </select>
-        <select name="filter">
-            <option value="all"><fmt:message key="jsp.sorting.all"/></option>
-            <option value="send"><fmt:message key="jsp.sorting.send"/></option>
-            <option value="prepared"><fmt:message key="jsp.sorting.prepared"/></option>
-        </select>
-        <input type="submit" value="<fmt:message key="jsp.sort"/>">
+        <label>
+            <select name="sorting" class="form-control bg-transparent shadow-lg text-white">
+                <option class="bg-dark" value="date"><fmt:message key="jsp.sorting.date"/></option>
+                <option class="bg-dark" value="number"><fmt:message key="jsp.number"/></option>
+            </select>
+        </label>
+        <label>
+            <select name="order" class="form-control bg-transparent shadow-lg text-white">
+                <option class="bg-dark" value="ascending"><fmt:message key="jsp.sorting.ascending"/></option>
+                <option class="bg-dark" value="descending"><fmt:message key="jsp.sorting.descending"/></option>
+            </select>
+        </label>
+<%--        <label>--%>
+<%--            <select name="filter" class="form-control bg-transparent shadow-lg text-white">--%>
+<%--                <option class="bg-dark" value="all"><fmt:message key="jsp.sorting.all"/></option>--%>
+<%--                <option class="bg-dark" value="send"><fmt:message key="jsp.sorting.send"/></option>--%>
+<%--                <option class="bg-dark" value="prepared"><fmt:message key="jsp.sorting.prepared"/></option>--%>
+<%--            </select>--%>
+
+<%--        </label>--%>
+        <input type="hidden" name="filter" value="all">
+        <input class="btn btn-info shadow-lg" type="submit" value="<fmt:message key="jsp.sort"/>">
     </form>
-    <br>
     <div class="table-responsive">
         <table class="table table-hover table-striped table-dark">
             <thead class="thead-light">

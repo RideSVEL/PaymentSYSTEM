@@ -38,7 +38,7 @@
                 <input id="lastName" class="form-control shadow-lg" name="lastName" value="${user.lastName}">
             </div>
         </c:if>
-        <input class="btn btn-success btn-block" type="submit" value="<fmt:message key='jsp.save'/>"><br/>
+        <input class="btn btn-success btn-block shadow-lg" type="submit" value="<fmt:message key='jsp.save'/>"><br/>
     </form>
 
 

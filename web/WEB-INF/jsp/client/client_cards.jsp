@@ -15,42 +15,9 @@
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
 <body>
-<c:set var="activeCards" value="active" scope="page" />
+<c:set var="activeCards" value="active" scope="page"/>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
-<div id="main-container" class="container">
-
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cardModal"><fmt:message
-            key="jsp.create.card"/></button>
-
-    <div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create new card</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form id="createCard" action="controller" method="post">
-                    <input type="hidden" name="command" value="createCard"/>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="name" class="col-form-label">New name card:</label>
-                            <input name="name" class="form-control" type="text" id="name"/><br/>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-success" value="<fmt:message key="jsp.accept"/>">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <br>
+<div class="container">
     <form id="sorting_cards" action="controller" method="post">
         <input type="hidden" name="command" value="userShowCards"/>
         <select name="sorting">
@@ -113,7 +80,8 @@
                                     <div class="spinner-border text-primary" role="status">
                                         <span class="sr-only">Loading...</span>
                                     </div>
-                                    <h5 id="exampleModalLabel2" class="modal-title text-uppercase">&nbsp; Blocking card</h5>
+                                    <h5 id="exampleModalLabel2" class="modal-title text-uppercase">&nbsp; Blocking
+                                        card</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -151,7 +119,8 @@
                                         <div class="spinner-border text-primary" role="status">
                                             <span class="sr-only">Loading...</span>
                                         </div>
-                                        <h5 align="center" id="exampleModalLabel3" class="modal-title text-uppercase">&nbsp; Request for
+                                        <h5 align="center" id="exampleModalLabel3" class="modal-title text-uppercase">
+                                            &nbsp; Request for
                                             administrator</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
