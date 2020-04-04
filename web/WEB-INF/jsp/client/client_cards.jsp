@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: sbkik
-  Date: 17.03.2020
-  Time: 11:37
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
@@ -17,95 +10,132 @@
 <body>
 <c:set var="activeCards" value="active" scope="page"/>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
-<div class="container">
+<br>
+
+
+<div class="container-fluid p5percent">
+    <c:if test="${sorting == 'name'}">
+        <c:set var="selectedName" value="selected" scope="page"/>
+    </c:if>
+    <c:if test="${sorting == 'number'}">
+        <c:set var="selectedNumber" value="selected" scope="page"/>
+    </c:if>
+    <c:if test="${sorting == 'money'}">
+        <c:set var="selectedMoney" value="selected" scope="page"/>
+    </c:if>
+    <c:if test="${order == 'ascending'}">
+        <c:set var="selectedAscending" value="selected" scope="page"/>
+    </c:if>
+    <c:if test="${order == 'descending'}">
+        <c:set var="selectedDescending" value="selected" scope="page"/>
+    </c:if>
+    <c:if test="${filter == 'all'}">
+        <c:set var="selectedAll" value="selected" scope="page"/>
+    </c:if>
+    <c:if test="${filter == 'active'}">
+        <c:set var="selectedActive" value="selected" scope="page"/>
+    </c:if>
+    <c:if test="${filter == 'block'}">
+        <c:set var="selectedBlock" value="selected" scope="page"/>
+    </c:if>
     <form id="sorting_cards" action="controller" method="post">
         <input type="hidden" name="command" value="userShowCards"/>
-        <select name="sorting">
-            <option value="name"><fmt:message key="jsp.sorting.name"/></option>
-            <option value="number"><fmt:message key="jsp.sorting.number"/></option>
-            <option value="money"><fmt:message key="jsp.sorting.money"/></option>
-        </select>
-        <select name="order">
-            <option value="ascending"><fmt:message key="jsp.sorting.ascending"/></option>
-            <option value="descending"><fmt:message key="jsp.sorting.descending"/></option>
-        </select>
-        <select name="filter">
-            <option value="all"><fmt:message key="jsp.sorting.all"/></option>
-            <option value="active"><fmt:message key="jsp.sorting.active"/></option>
-            <option value="block"><fmt:message key="jsp.sorting.block"/></option>
-        </select>
-        <input type="submit" value="<fmt:message key="jsp.sort"/>">
+        <label>
+            <select name="sorting" class="form-control bg-transparent shadow-lg text-white">
+                <option class="bg-dark" ${selectedName} value="name"><fmt:message key="jsp.sorting.name"/></option>
+                <option class="bg-dark" ${selectedNumber} value="number"><fmt:message
+                        key="jsp.sorting.number"/></option>
+                <option class="bg-dark" ${selectedMoney} value="money"><fmt:message key="jsp.sorting.money"/></option>
+            </select>
+        </label>
+        <label>
+            <select name="order" class="form-control bg-transparent shadow-lg text-white">
+                <option class="bg-dark" ${selectedAscending} value="ascending"><fmt:message
+                        key="jsp.sorting.ascending"/></option>
+                <option class="bg-dark" ${selectedDescending} value="descending"><fmt:message
+                        key="jsp.sorting.descending"/></option>
+            </select>
+        </label>
+        <label>
+            <select name="filter" class="form-control bg-transparent shadow-lg text-white">
+                <option class="bg-dark" ${selectedAll} value="all"><fmt:message key="jsp.sorting.all"/></option>
+                <option class="bg-dark" ${selectedActive} value="active"><fmt:message
+                        key="jsp.sorting.active"/></option>
+                <option class="bg-dark" ${selectedBlock} value="block"><fmt:message key="jsp.sorting.block"/></option>
+            </select>
+        </label>
+        <input class="btn btn-info shadow-lg" type="submit" value="<fmt:message key="jsp.sort"/>">
     </form>
-    <br>
-    <table id="cards_table" class="table table-hover table-striped table-responsive">
-        <thead>
-        <tr>
-            <td>#</td>
-            <td><fmt:message key="jsp.Name"/></td>
-            <td><fmt:message key="jsp.number"/></td>
-            <td><fmt:message key="jsp.money"/></td>
-            <td><fmt:message key="jsp.activity"/></td>
-            <td class="content center"><fmt:message key="jsp.activity"/></td>
-        </tr>
-        </thead>
+</div>
 
-        <c:set var="k" value="0"/>
+<div class="container p5percent">
+    <div class="row">
         <c:forEach var="card" items="${cards}">
-            <c:set var="k" value="${k+1}"/>
-            <tr>
-                <td><c:out value="${k}"/></td>
-                <td>${card.name}</td>
-                <td>${card.number}</td>
-                <td>${card.money}</td>
-                <td>
-                    <c:if test="${card.activityId == 0}">
-                        <fmt:message key="jsp.activity.active"/>
-                    </c:if>
-                    <c:if test="${card.activityId == 1}">
-                        <fmt:message key="jsp.activity.blocked"/>
-                    </c:if>
-                <td class="content center">
+            <c:set var="bg" value="bg-dark"/>
+            <c:if test="${card.activityId == 1}">
+                <c:set var="bg" value="bg-danger"/>
+                <c:if test="${card.requestId == 1}">
+                    <c:set var="bg" value="bg-info"/>
+                </c:if>
+            </c:if>
+            <div class="card text-white ${bg}  mb-3" style="width: 18rem;">
+                <h5 class="card-header text-uppercase">
+                    <div class="spinner-grow spinner-grow-sm text-light" role="status">
+                        <span class="sr-only">Loading...</span></div> ${card.name}</h5>
+                <div class="card-body">
+                    <h6 class="card-title">Card number: ${card.number}</h6>
+                    <p class="card-text"><fmt:message key="jsp.balance"/>: ${card.money} UAN</p>
+                    <p>
+                        <c:if test="${card.activityId == 0}">
+                            <fmt:message key="jsp.activity.active"/>
+                        </c:if>
+                        <c:if test="${card.activityId == 1}">
+                            <fmt:message key="jsp.activity.blocked"/>
+                        </c:if>
+                    </p>
+                </div>
+                <div class="card-footer">
                     <c:if test="${card.requestId == 0}">
-                    <c:if test="${card.activityId == 0}">
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
-                        <fmt:message key="jsp.block"/>
-                    </button>
+                        <c:if test="${card.activityId == 0}">
+                            <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#exampleModal">
+                                <fmt:message key="jsp.block"/>
+                            </button>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLabel2" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <div class="spinner-border text-primary" role="status">
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                    <h5 id="exampleModalLabel2" class="modal-title text-uppercase">&nbsp; Blocking
-                                        card</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="modal-body">
-                                        <p><fmt:message key="jsp.are_you_confirm_your_action"/></p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        <h5 id="exampleModalLabel2" class="modal-title text-uppercase text-dark">&nbsp; Blocking
+                                            card</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
                                         </button>
-                                        <form action="controller" method="post">
-                                            <input type="hidden" name="command" value="blockUserCard"/>
-                                            <input type="hidden" name="card_id" value="${card.id}"/>
-                                            <input class="btn btn-danger" type="submit"
-                                                   value="<fmt:message key="jsp.block"/>"/>
-                                        </form>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="modal-body">
+                                            <p class="text-dark"><fmt:message key="jsp.are_you_confirm_your_action"/></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                            </button>
+                                            <form action="controller" method="post">
+                                                <input type="hidden" name="command" value="blockUserCard"/>
+                                                <input type="hidden" name="card_id" value="${card.id}"/>
+                                                <input class="btn btn-danger" type="submit"
+                                                       value="<fmt:message key="jsp.block"/>"/>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         </c:if>
-                        <c:if test="${card.activityId == 1}">
+                    <c:if test="${card.activityId == 1}">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
                             <fmt:message key="jsp.unblock.request"/>
                         </button>
@@ -119,7 +149,7 @@
                                         <div class="spinner-border text-primary" role="status">
                                             <span class="sr-only">Loading...</span>
                                         </div>
-                                        <h5 align="center" id="exampleModalLabel3" class="modal-title text-uppercase">
+                                        <h5 align="center" id="exampleModalLabel3" class="modal-title text-uppercase text-dark">
                                             &nbsp; Request for
                                             administrator</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -128,7 +158,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="modal-body">
-                                            <p><fmt:message key="jsp.are_you_confirm_your_action"/></p>
+                                            <p class="text-dark"><fmt:message key="jsp.are_you_confirm_your_action"/></p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
@@ -143,17 +173,17 @@
                                     </div>
                                 </div>
                             </div>
-                            </c:if>
-                            </c:if>
+                        </div>
+                    </c:if>
+                    </c:if>
                             <c:if test="${card.requestId == 1}">
-                            Under consideration
+                                Under consideration
                             </c:if>
-                </td>
-            </tr>
+                </div>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </c:forEach>
-    </table>
-
-
+    </div>
 </div>
 
 <%@ include file="/WEB-INF/jspf/footer.jspf" %>

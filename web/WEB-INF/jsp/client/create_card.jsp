@@ -23,7 +23,8 @@
         <label for="name"><fmt:message key="jsp.name.newCard"/></label>
         <div class="form-group">
             <br>
-            <input class="form-control shadow-lg" id="name" name="name" type="text" placeholder="Name"/>
+            <input class="form-control shadow-lg" id="name" name="name" type="text" placeholder="Name" required
+                   pattern="[\w&#1072;-&#1103;&#1040;-&#1071;]{2,15}"/>
         </div>
         <input class="btn btn-success shadow-lg" type="submit" value="<fmt:message key="jsp.accept"/>">
     </form>

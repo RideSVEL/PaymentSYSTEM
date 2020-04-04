@@ -34,7 +34,13 @@
         <div class="form-group">
             <a class="text-white"><fmt:message key="jsp.max_sum"/></a>
             <label class="text-white" for="sum"><fmt:message key="jsp.sum"/></label>
-            <input class="form-control shadow-lg" id="sum" name="sum" type="number"/>
+            <div class="input-group shadow-lg">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">&#8372;</span>
+                </div>
+                <input class="form-control" id="sum" name="sum" type="number" aria-label="Sum"
+                       aria-describedby="basic-addon1" placeholder="<fmt:message key="jsp.sum"/>"/>
+            </div>
         </div>
         <div class="form-group">
             <label class="text-white" for="destination"><fmt:message key="jsp.card.destination"/></label>

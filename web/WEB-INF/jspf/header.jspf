@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #20252A">
-    <a href="#" class="navbar-brand ">
+    <a href="/" class="navbar-brand ">
         <img src="img/moneyicom.png" alt="logo" width="30" height="30">
     </a>
     <b style="color: floralwhite" class="navbar-brand">PAYMENT SYSTEM</b>
@@ -13,7 +13,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <c:if test="${userRole.name == 'admin'}">
-            <form class="form-inline mx-auto my-lg-0">
+            <form class="form-inline mx-auto my-lg-0" action="controller" method="post">
                 <input type="hidden" name="command" value="searchUser"/>
                 <input class="form-control mr-sm-2" type="search"
                        placeholder="<fmt:message key="jsp.header.search_user_by_login"/>"
