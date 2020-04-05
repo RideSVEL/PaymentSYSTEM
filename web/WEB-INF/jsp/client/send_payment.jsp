@@ -39,12 +39,12 @@
                     <span class="input-group-text" id="basic-addon1">&#8372;</span>
                 </div>
                 <input class="form-control" id="sum" name="sum" type="number" aria-label="Sum"
-                       aria-describedby="basic-addon1" placeholder="<fmt:message key="jsp.sum"/>"/>
+                       aria-describedby="basic-addon1" placeholder="<fmt:message key="jsp.sum"/>" required pattern="[0-9]+"/>
             </div>
         </div>
         <div class="form-group">
             <label class="text-white" for="destination"><fmt:message key="jsp.card.destination"/></label>
-            <input class="form-control shadow-lg" id="destination" name="destination" type="number"/><br/>
+            <input class="form-control shadow-lg" id="destination" name="destination" type="number" required pattern="[0-9]{12}"/><br/>
         </div>
         <input class="btn btn-success shadow-lg" type="submit" value="<fmt:message key="jsp.accept"/>">
     </form>

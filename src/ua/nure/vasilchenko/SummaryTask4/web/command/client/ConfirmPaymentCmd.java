@@ -1,10 +1,12 @@
 package ua.nure.vasilchenko.SummaryTask4.web.command.client;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import ua.nure.vasilchenko.SummaryTask4.Path;
 import ua.nure.vasilchenko.SummaryTask4.db.DBManager;
 import ua.nure.vasilchenko.SummaryTask4.db.entity.Card;
 import ua.nure.vasilchenko.SummaryTask4.db.entity.Payment;
+import ua.nure.vasilchenko.SummaryTask4.db.entity.User;
 import ua.nure.vasilchenko.SummaryTask4.exception.AppException;
 import ua.nure.vasilchenko.SummaryTask4.web.command.base.Command;
 
@@ -23,11 +25,16 @@ public class ConfirmPaymentCmd extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.debug("Command starts");
+        User user = (User) request.getSession().getAttribute("user");
+        if (!user.getPassword().equals(DigestUtils.md5Hex(request.getParameter("password")))) {
+            throw new AppException("Your password doesnt match");
+        }
         String id = (String) request.getSession().getAttribute("card_id");
         String sum = (String) request.getSession().getAttribute("sum");
         String destination = (String) request.getSession().getAttribute("destination");
         String confirm = request.getParameter("confirm");
         DBManager manager = DBManager.getInstance();
+
         Card card = manager.findCard(Long.parseLong(id));
         Card destinationCard = manager.findCardByNumber(Long.parseLong(destination));
         if ("true".equals(confirm)) {
