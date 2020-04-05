@@ -25,9 +25,11 @@ public class BlockCardCmd extends Command {
         DBManager manager = DBManager.getInstance();
         String id = request.getParameter("card_id");
         Card card = manager.findCard(Integer.parseInt(id));
+        LOG.trace("Found in DB: card --> " + card);
         card.setActivityId(1);
         try {
             manager.updateCard(card);
+            LOG.trace("update in DB: card --> " + card);
         } catch (SQLException e) {
             e.printStackTrace();
         }

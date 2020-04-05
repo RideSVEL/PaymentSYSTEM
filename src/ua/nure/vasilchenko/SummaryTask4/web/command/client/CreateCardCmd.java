@@ -27,12 +27,16 @@ public class CreateCardCmd extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.debug("Command starts");
         String name = request.getParameter("name");
+        LOG.trace("get from request parameter" + name);
         if (name == null || name.isEmpty()) {
+            LOG.trace("fields was empty");
             throw new AppException(Messages.FIELDS_CANNOT_BE_EMPTY);
         }
         DBManager manager = DBManager.getInstance();
         User user = (User) request.getSession().getAttribute("user");
+        LOG.trace("get attribute from session" + user);
         List<Card> cards = manager.getUserCards(user);
+        LOG.trace("Found in DB: cardsList --> " + cards);
         for (Card card : cards) {
             if (name.equals(card.getName())) {
                 throw new AppException(Messages.CARD_WITH_THIS_NAME_ALREADY_EXISTS);
@@ -43,10 +47,12 @@ public class CreateCardCmd extends Command {
         card.setUserId(user.getId());
         card.setNumber(CardNumber.createCardNumber());
         try {
+            LOG.trace("Set in DB: card --> " + card);
             manager.insertCard(card);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        LOG.debug("Command finished");
         return Path.COMMAND_USER_CARDS;
 
     }

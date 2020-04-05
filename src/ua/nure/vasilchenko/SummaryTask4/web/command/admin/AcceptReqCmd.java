@@ -26,9 +26,11 @@ public class AcceptReqCmd extends Command {
         DBManager manager = DBManager.getInstance();
         String id = request.getParameter("card_id");
         Card card = manager.findCard(Integer.parseInt(id));
+        LOG.trace("Found in DB: card --> " + card);
         card.setActivityId(0);
         card.setRequestId(0);
         try {
+            LOG.trace("update in DB: card --> " + card);
             manager.updateCard(card);
         } catch (SQLException e) {
             e.printStackTrace();

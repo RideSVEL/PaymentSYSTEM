@@ -29,39 +29,39 @@ public class UpdateSettingsCmd extends Command {
         LOG.debug("Command starts");
         DBManager manager = DBManager.getInstance();
         User user = (User) request.getSession().getAttribute("user");
+        LOG.trace("Get user from session: " + user);
         String language = request.getParameter("locale");
         String name = request.getParameter("name");
         String lastName = request.getParameter("lastName");
+        LOG.trace("Get parameters: locale, name, lastname");
         if (name == null || lastName == null || name.isEmpty() || lastName.isEmpty()) {
-
+            LOG.debug("fields was empty");
         } else {
             user.setLastName(lastName);
             user.setFirstName(name);
             try {
+                LOG.trace("Updating user" + user);
                 manager.updateUser(user);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
         Locale loc;
-        switch (language){
+        switch (language) {
             default:
             case ENGLISH:
                 loc = new Locale("en");
                 request.setAttribute("locale", "en");
-                request.getSession().setAttribute("inter", ENGLISH);
                 LOG.debug("Set locale " + ENGLISH);
                 break;
             case RUSSIAN:
                 loc = new Locale("ru");
                 request.setAttribute("locale", "ru");
-                request.getSession().setAttribute("inter", RUSSIAN);
                 LOG.debug("Set locale " + RUSSIAN);
                 break;
             case UKRAINIAN:
                 loc = new Locale("uk");
                 request.setAttribute("locale", "uk");
-                request.getSession().setAttribute("inter", UKRAINIAN);
                 LOG.debug("Set locale " + UKRAINIAN);
                 break;
         }

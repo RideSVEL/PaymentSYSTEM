@@ -24,10 +24,13 @@ public class UserBlockCardCmd extends Command {
         LOG.debug("Command starts");
         DBManager manager = DBManager.getInstance();
         String id = request.getParameter("card_id");
+        LOG.trace("get parameter" + id);
         Card card = manager.findCard(Integer.parseInt(id));
+        LOG.trace("find card in db" + card);
         card.setActivityId(1);
         try {
             manager.updateCard(card);
+            LOG.debug("update card in db");
         } catch (SQLException e) {
             e.printStackTrace();
         }

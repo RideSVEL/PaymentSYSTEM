@@ -27,17 +27,22 @@ public class ConfirmPaymentCmd extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.debug("Command starts");
         User user = (User) request.getSession().getAttribute("user");
+        LOG.trace("get attribute from session" + user);
         if (!user.getPassword().equals(DigestUtils.md5Hex(request.getParameter("password")))) {
+            LOG.debug("password does not match");
             throw new AppException(Messages.YOUR_PASSWORD_DOES_NOT_MATCH);
         }
         String id = (String) request.getSession().getAttribute("card_id");
         String sum = (String) request.getSession().getAttribute("sum");
         String destination = (String) request.getSession().getAttribute("destination");
         String confirm = request.getParameter("confirm");
+        LOG.trace("get from session attributes");
         DBManager manager = DBManager.getInstance();
 
         Card card = manager.findCard(Long.parseLong(id));
+        LOG.trace("Found in DB: card" + card);
         Card destinationCard = manager.findCardByNumber(Long.parseLong(destination));
+        LOG.trace("Found in DB: card" + card);
         if ("true".equals(confirm)) {
             card.setMoney(card.getMoney() - Integer.parseInt(sum));
             destinationCard.setMoney(destinationCard.getMoney() + Integer.parseInt(sum));
@@ -51,8 +56,11 @@ public class ConfirmPaymentCmd extends Command {
             payment.setStatusId(1);
             try {
                 manager.updateCard(card);
+                LOG.trace("update in DB: card" + card);
                 manager.updateCard(destinationCard);
+                LOG.trace("update in DB: destinationCard" + destinationCard);
                 manager.insertPayment(payment);
+                LOG.trace("insert in DB: payment" + payment);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -61,10 +69,12 @@ public class ConfirmPaymentCmd extends Command {
             payment.setStatusId(0);
             try {
                 manager.insertPayment(payment);
+                LOG.trace("insert in DB: payment" + payment);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+        LOG.debug("Command finished");
         return Path.COMMAND_USER_PAYMENTS + "&sorting=date&order=ascending&filter=all";
     }
 }

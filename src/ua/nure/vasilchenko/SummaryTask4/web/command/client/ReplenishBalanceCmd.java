@@ -24,6 +24,7 @@ public class ReplenishBalanceCmd extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.debug("Command starts");
         User user = (User) request.getSession().getAttribute("user");
+        LOG.trace("get attribute from session" + user);
         DBManager manager = DBManager.getInstance();
         // get user cards list
         List<Card> cards = manager.getUserCards(user);

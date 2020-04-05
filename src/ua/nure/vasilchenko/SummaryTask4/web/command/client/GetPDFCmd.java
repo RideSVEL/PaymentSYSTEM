@@ -38,6 +38,7 @@ public class GetPDFCmd extends Command {
 
         DBManager manager = DBManager.getInstance();
         Payment payment = manager.findPayment(paymentId);
+        LOG.trace("found in DB: payment --> " + payment);
         String pdfPaymentId = "Id of your payment - " + payment.getId();
         String pdfCardNumber = "Number of your card with which payment was made - " + manager.findCard(payment.getCardId()).getNumber();
         String pdfCardDestinationNumber = "Beneficiary card number - " + manager.findCard(payment.getCardDestinationId()).getNumber();
@@ -72,7 +73,9 @@ public class GetPDFCmd extends Command {
         document.add(new Paragraph(pdfMoney));
         document.add(new Paragraph(pdfBalance));
         document.add(new Paragraph("Thank you for choosing us."));
+        LOG.trace("add content on pdf --> " + document);
         document.close();
+        LOG.debug("closing file --> " + document);
         return filename;
     }
 
@@ -81,6 +84,7 @@ public class GetPDFCmd extends Command {
         LOG.debug("Command starts");
 
         String paymentId = request.getParameter("payment_id");
+        LOG.trace("getting request parament: paymentId --> " + paymentId);
         if (paymentId == null || paymentId.isEmpty()) {
             throw new AppException(Messages.ERROR);
         }
@@ -100,7 +104,8 @@ public class GetPDFCmd extends Command {
             response.setContentLength((int) file.length());
             FileInputStream fileInputStream = new FileInputStream(file);
             inputStream = new BufferedInputStream(fileInputStream);
-            int readBytes = 0;
+            int readBytes;
+            LOG.debug("sending to user pdf --> ");
             while ((readBytes = inputStream.read()) != -1)
                 outputStream.write(readBytes);
         } catch (ExportException e) {

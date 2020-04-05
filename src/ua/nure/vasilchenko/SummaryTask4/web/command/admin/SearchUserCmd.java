@@ -35,8 +35,8 @@ public class SearchUserCmd extends Command {
         }
 
         List<User> users = new ArrayList<>();
-        if (user != null){
-        users.add(user);
+        if (user != null) {
+            users.add(user);
         } else {
             throw new AppException(Messages.NO_SUCH_USER_WITH_THIS_LOGIN + search);
         }

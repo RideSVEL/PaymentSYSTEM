@@ -24,9 +24,12 @@ public class UserUnblockRequestCmd extends Command {
         LOG.debug("Command starts");
         DBManager manager = DBManager.getInstance();
         String id = request.getParameter("card_id");
+        LOG.trace("Get parameter card_id from request" + id);
+        LOG.debug("Parsing card_id to int");
         Card card = manager.findCard(Integer.parseInt(id));
         card.setRequestId(1);
         try {
+            LOG.trace("Updting card in db" + card);
             manager.updateCard(card);
         } catch (SQLException e) {
             e.printStackTrace();

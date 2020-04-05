@@ -11,13 +11,13 @@ import java.util.TreeMap;
 /**
  * Holder for all commands.<br/>
  *
- * @author D.Kolesnikov
+ * @author S.Vasilchenko
  */
 public class CommandContainer {
 
     private static final Logger LOG = Logger.getLogger(CommandContainer.class);
 
-    private static Map<String, Command> commands = new TreeMap<String, Command>();
+    private static Map<String, Command> commands = new TreeMap<>();
 
     static {
         // common commands
@@ -44,8 +44,8 @@ public class CommandContainer {
         commands.put("confirmDefer", new ConfirmDeferCmd());
         commands.put("createCard", new CreateCardCmd());
         commands.put("commandCard", new CardCmd());
-		commands.put("deleteDefer", new DeleteDeferPaymentCmd());
-		commands.put("getPdf", new GetPDFCmd());
+        commands.put("deleteDefer", new DeleteDeferPaymentCmd());
+        commands.put("getPdf", new GetPDFCmd());
 
         // admin commands
         commands.put("listUsers", new ListUsersCmd());

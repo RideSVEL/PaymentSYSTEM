@@ -25,9 +25,11 @@ public class UnblockUserCmd extends Command {
         DBManager manager = DBManager.getInstance();
         String id = request.getParameter("user_id");
         User user = manager.findUser(Integer.parseInt(id));
+        LOG.trace("Found in DB: user --> " + user);
         user.setActivityId(0);
         try {
             manager.updateUser(user);
+            LOG.trace("update in DB: user --> " + user);
         } catch (SQLException e) {
             e.printStackTrace();
         }

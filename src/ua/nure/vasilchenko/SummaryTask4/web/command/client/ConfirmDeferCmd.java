@@ -25,19 +25,23 @@ public class ConfirmDeferCmd extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.debug("Command starts");
         String id = request.getParameter("payment_id");
+        LOG.trace("get parameter from session" + id);
         DBManager manager = DBManager.getInstance();
         if (id == null || id.isEmpty()) {
             throw new AppException(Messages.FIELDS_CANNOT_BE_EMPTY);
         }
         Payment payment = manager.findPayment(Long.parseLong(id));
+        LOG.trace("Found in DB: payment --> " + payment);
         if (payment == null) {
             throw new AppException(Messages.PAYMENT_DONT_CREATED);
         }
         Card card = manager.findCard(payment.getCardId());
+        LOG.trace("Found in DB: card --> " + card);
         if (card.getActivityId() == 1) {
             throw new AppException(Messages.YOUR_CARD_WAS_BLOCKED);
         }
         Card destinationCard = manager.findCard(payment.getCardDestinationId());
+        LOG.trace("Found in DB: destinationCard --> " + destinationCard);
         if (destinationCard.getActivityId() == 1) {
             throw new AppException(Messages.CARD_DESTINATION_USER_WAS_BLOCKED);
         }
@@ -50,8 +54,11 @@ public class ConfirmDeferCmd extends Command {
         payment.setBalance(card.getMoney());
         try {
             manager.updateCard(card);
+            LOG.trace("update in DB: card --> " + card);
             manager.updateCard(destinationCard);
+            LOG.trace("update in DB: destinationCard --> " + destinationCard);
             manager.updatePayment(payment);
+            LOG.trace("update in DB: payment --> " + payment);
         } catch (SQLException e) {
             e.printStackTrace();
         }

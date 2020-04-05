@@ -45,6 +45,7 @@ public class RegisterCmd extends Command {
         }
 
         String md5Hex = DigestUtils.md5Hex(password);
+        LOG.trace("encryption password -> " + md5Hex);
 
         user = new User();
         user.setLogin(login);
@@ -70,6 +71,7 @@ public class RegisterCmd extends Command {
         card.setName(user.getLogin());
         try {
             manager.insertCard(card);
+            LOG.debug("Insert card in DB" + card);
         } catch (SQLException e) {
             e.printStackTrace();
         }

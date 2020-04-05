@@ -26,6 +26,7 @@ public class ShowCardsCmd extends Command {
         String id = request.getParameter("user_id");
         DBManager manager = DBManager.getInstance();
         User user = manager.findUser(Integer.parseInt(id));
+        LOG.trace("Found in DB: user --> " + user);
         // get user cards list
         List<Card> cards = manager.getUserCards(user);
 

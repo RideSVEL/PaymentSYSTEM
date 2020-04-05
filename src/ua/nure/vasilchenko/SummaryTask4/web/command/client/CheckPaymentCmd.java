@@ -27,6 +27,7 @@ public class CheckPaymentCmd extends Command {
         String id = request.getParameter("card_id");
         String sum = request.getParameter("sum");
         String destination = request.getParameter("destination");
+        LOG.trace("get attribute from session");
         DBManager manager = DBManager.getInstance();
         if (sum == null || id == null || destination == null || id.isEmpty() || sum.isEmpty() || destination.isEmpty()) {
             throw new AppException(Messages.FIELDS_CANNOT_BE_EMPTY);
@@ -39,10 +40,12 @@ public class CheckPaymentCmd extends Command {
             throw new AppException(Messages.CARD_DESTINATION_IS_NOT_VALID);
         }
         Card card = manager.findCard(Integer.parseInt(id));
+        LOG.trace("Found in DB: card --> " + card);
         if (card.getMoney() < sumPayment) {
             throw new AppException(Messages.SUM_HIGHER_THAN_MONEY);
         }
         Card destinationCard = manager.findCardByNumber(Long.parseLong(destination));
+        LOG.trace("Found in DB: destinationCard --> " + destinationCard);
         if (destinationCard == null) {
             throw new AppException(Messages.DESTINATION_CARD_DOES_NOTE_EXISTS);
         }
@@ -54,6 +57,7 @@ public class CheckPaymentCmd extends Command {
         session.setAttribute("card_id", id);
         session.setAttribute("sum", sum);
         session.setAttribute("destination", destination);
+        LOG.trace("setting attribute on session --> " + id + " " + sum + " " + destination);
 
         LOG.debug("Command finished");
         return Path.PAGE_USER_CONFIRM_PAYMENT;

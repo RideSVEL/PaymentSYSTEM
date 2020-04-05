@@ -24,6 +24,7 @@ public class AddBalanceCmd extends Command {
         LOG.debug("Command starts");
         String id = request.getParameter("card_id");
         String sum = request.getParameter("sum");
+        LOG.trace("get parameters from request " + id + " " + sum);
         if (sum == null || id == null || id.isEmpty() || sum.isEmpty()) {
             throw new AppException(Messages.FIELDS_CANNOT_BE_EMPTY);
         }

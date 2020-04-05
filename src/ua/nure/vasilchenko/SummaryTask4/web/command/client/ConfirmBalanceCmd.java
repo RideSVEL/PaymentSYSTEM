@@ -27,13 +27,16 @@ public class ConfirmBalanceCmd extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.debug("Command starts");
         User user = (User) request.getSession().getAttribute("user");
+        LOG.trace("get attribute from session" + user);
         if (!user.getPassword().equals(DigestUtils.md5Hex(request.getParameter("password")))) {
             throw new AppException(Messages.YOUR_PASSWORD_DOES_NOT_MATCH);
         }
         String id = (String) request.getSession().getAttribute("card_id");
         String sum = (String) request.getSession().getAttribute("sum");
+        LOG.debug("get attributes from session");
         DBManager manager = DBManager.getInstance();
         Card card = manager.findCard(Long.parseLong(id));
+        LOG.trace("Found in DB: card --> " + card);
         card.setMoney(card.getMoney() + Integer.parseInt(sum));
         Payment payment = new Payment();
         payment.setCardDestinationId(card.getId());
@@ -42,10 +45,13 @@ public class ConfirmBalanceCmd extends Command {
         payment.setStatusId(1);
         try {
             manager.updateCard(card);
+            LOG.trace("update in DB: card --> " + card);
             manager.insertPayment(payment);
+            LOG.trace("insert in DB: payment --> " + payment);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        LOG.debug("Command finished");
         return Path.COMMAND_USER_CARDS + "&sorting=name&order=ascending&filter=all";
     }
 }

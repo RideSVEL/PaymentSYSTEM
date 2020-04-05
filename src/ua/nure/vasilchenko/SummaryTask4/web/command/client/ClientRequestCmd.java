@@ -26,11 +26,13 @@ public class ClientRequestCmd extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.debug("Command starts");
         User user = (User) request.getSession().getAttribute("user");
+        LOG.trace("get attribute from session" + user);
         DBManager manager = DBManager.getInstance();
         // get user cards list
         List<Card> cards = manager.getUserCards(user);
+        LOG.trace("Found in DB: cardsList --> " + cards);
         List<Card> resultCards = new ArrayList<>();
-
+        LOG.trace("create : resultCards --> " + resultCards);
         Request requestEnum;
 
 
@@ -38,10 +40,11 @@ public class ClientRequestCmd extends Command {
             requestEnum = Request.getRequest(card);
             if (requestEnum == Request.TRUE) {
                 resultCards.add(card);
-                //cards.remove(card);
             }
         }
         request.setAttribute("cards", resultCards);
+        LOG.trace("setting attribut in session " + resultCards);
+        LOG.debug("Command finished");
         return Path.PAGE_USER_REQUESTS;
     }
 }

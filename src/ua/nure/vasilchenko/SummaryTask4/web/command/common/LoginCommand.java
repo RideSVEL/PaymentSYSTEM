@@ -19,71 +19,70 @@ import java.io.IOException;
 
 /**
  * Login command.
- * 
+ *
  * @author D.Kolesnikov
- * 
  */
 public class LoginCommand extends Command {
 
-	private static final long serialVersionUID = -3071536593627692473L;
+    private static final long serialVersionUID = -3071536593627692473L;
 
-	private static final Logger LOG = Logger.getLogger(LoginCommand.class);
+    private static final Logger LOG = Logger.getLogger(LoginCommand.class);
 
-	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) 
-			throws IOException, ServletException, AppException {
-		LOG.debug("Command starts");
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException, AppException {
+        LOG.debug("Command starts");
 
-		HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
 
-		// obtain login and password from a request
-		DBManager manager = DBManager.getInstance();
-		String login = request.getParameter("login");
-		LOG.trace("Request parameter: login --> " + login);
+        // obtain login and password from a request
+        DBManager manager = DBManager.getInstance();
+        String login = request.getParameter("login");
+        LOG.trace("Request parameter: login --> " + login);
 
-		String password = request.getParameter("password");
-		if (login == null || password == null || login.isEmpty() || password.isEmpty()) {
-			throw new AppException(Messages.LOGINPASSWORD_CANNOT_BE_EMPTY);
-		}
+        String password = request.getParameter("password");
+        if (login == null || password == null || login.isEmpty() || password.isEmpty()) {
+            throw new AppException(Messages.LOGINPASSWORD_CANNOT_BE_EMPTY);
+        }
 
-		User user = manager.findUserByLogin(login);
-		LOG.trace("Found in DB: user --> " + user);
+        User user = manager.findUserByLogin(login);
+        LOG.trace("Found in DB: user --> " + user);
 
-		String md5Hex = DigestUtils.md5Hex(password);
+        String md5Hex = DigestUtils.md5Hex(password);
 
-		if (user == null || !md5Hex.equals(user.getPassword())) {
-			throw new AppException(Messages.CANNOT_FIND_USER_WITH_SUCH_LOGIN);
-		}
+        if (user == null || !md5Hex.equals(user.getPassword())) {
+            throw new AppException(Messages.CANNOT_FIND_USER_WITH_SUCH_LOGIN);
+        }
 
-		Activity activity = Activity.getActivity(user);
-		LOG.trace("userActivity --> " + activity);
-		if (activity == Activity.BLOCKED) {
-			throw new AppException(Messages.YOUR_ACCOUNT_WAS_BLOCKED);
-		}
+        Activity activity = Activity.getActivity(user);
+        LOG.trace("userActivity --> " + activity);
+        if (activity == Activity.BLOCKED) {
+            throw new AppException(Messages.YOUR_ACCOUNT_WAS_BLOCKED);
+        }
 
-		Role userRole = Role.getRole(user);
-		LOG.trace("userRole --> " + userRole);
-		
-		String forward = Path.PAGE_ERROR_PAGE;
+        Role userRole = Role.getRole(user);
+        LOG.trace("userRole --> " + userRole);
 
-		if (userRole == Role.ADMIN) {
-			forward = Path.COMMAND_LIST_USERS;
-		}
+        String forward = Path.PAGE_ERROR_PAGE;
 
-		if (userRole == Role.CLIENT) {
-			forward = Path.COMMAND_USER_CARDS;
-		}
+        if (userRole == Role.ADMIN) {
+            forward = Path.COMMAND_LIST_USERS;
+        }
 
-		session.setAttribute("user", user);
-		LOG.trace("Set the session attribute: user --> " + user);
+        if (userRole == Role.CLIENT) {
+            forward = Path.COMMAND_USER_CARDS;
+        }
 
-		session.setAttribute("userRole", userRole);
-		LOG.trace("Set the session attribute: userRole --> " + userRole);
+        session.setAttribute("user", user);
+        LOG.trace("Set the session attribute: user --> " + user);
 
-		LOG.info("User " + user + " logged as " + userRole.toString().toLowerCase());
+        session.setAttribute("userRole", userRole);
+        LOG.trace("Set the session attribute: userRole --> " + userRole);
 
-		LOG.debug("Command finished");
-		return forward;
-	}
+        LOG.info("User " + user + " logged as " + userRole.toString().toLowerCase());
+
+        LOG.debug("Command finished");
+        return forward;
+    }
 
 }
