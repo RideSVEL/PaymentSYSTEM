@@ -9,7 +9,7 @@
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
 <body>
-<c:set var="activeRequests" value="active" scope="page" />
+<c:set var="activeRequests" value="active" scope="page"/>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <br><br>
 <c:if test="${countAdmin <= 0}">
@@ -44,7 +44,8 @@
                         <td>${card.number}</td>
                         <td>${card.money}</td>
                         <td>
-                            <c:if test="${card.activityId == 1}">Blocked</c:if>
+                                <c:if test="${card.activityId == 1}"><fmt:message key="jsp.activity.blocked"/></c:if>
+                                <c:if test="${card.activityId == 0}"><fmt:message key="jsp.activity.active"/></c:if>
                         <td class="content center">
                             <form id="block_user" action="controller" method="post">
                                 <input type="hidden" name="command" value="acceptRequest"/>

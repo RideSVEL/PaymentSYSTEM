@@ -52,6 +52,7 @@ public final class DBManager {
 
     /**
      * Constructor for realization single ton. Read data from context.xml
+     *
      * @throws DBException
      */
     private DBManager() throws DBException {
@@ -127,9 +128,10 @@ public final class DBManager {
     // //////////////////////////////////////////////////////////
 
     /**
-     * @param user
-     * @throws DBException
-     * @throws SQLException
+     * Method insert in DB in table 'users'
+     * new user from entity.
+     *
+     * @param user - from command register.
      */
     public void insertUser(User user) throws DBException, SQLException {
         Connection con = getConnection();
@@ -138,20 +140,29 @@ public final class DBManager {
                 return;
             }
             PreparedStatement ps = con.prepareStatement(SQL_INSERT_USER);
+            LOG.trace("Preparation statement: " + ps);
             ps.setString(1, user.getLogin());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getFirstName());
             ps.setString(4, user.getLastName());
             ps.executeUpdate();
             con.commit();
+            LOG.trace("Statement commit: " + ps);
         } catch (SQLException ex) {
             con.rollback();
-            throw new DBException();
+            LOG.error(Messages.ERR_CANNOT_INSERT_USER, ex);
+            throw new DBException(Messages.ERR_CANNOT_INSERT_USER, ex);
         } finally {
             close(con);
         }
     }
 
+    /**
+     * Method insert in DB in table 'cards'
+     * new card from entity.
+     *
+     * @param card - add from command register and create_card.
+     */
     public void insertCard(Card card) throws DBException, SQLException {
         Connection con = getConnection();
         try {
@@ -159,6 +170,7 @@ public final class DBManager {
                 return;
             }
             PreparedStatement ps = con.prepareStatement(SQL_INSERT_CARD);
+            LOG.trace("Preparation statement: " + ps);
             ps.setLong(1, card.getUserId());
             ps.setString(2, card.getName());
             ps.setLong(3, card.getNumber());
@@ -167,18 +179,29 @@ public final class DBManager {
             ps.setInt(6, card.getRequestId());
             ps.executeUpdate();
             con.commit();
+            LOG.trace("Statement commit: " + ps);
         } catch (SQLException ex) {
             con.rollback();
-            throw new DBException();
+            LOG.error(Messages.ERR_CANNOT_INSERT_CARD, ex);
+            throw new DBException(Messages.ERR_CANNOT_INSERT_CARD, ex);
         } finally {
             close(con);
         }
     }
-//"INSERT payment.payments VALUES (DEFAULT, ?, ?, ?,(SELECT CURRENT_TIMESTAMP),? , ?)";
+
+
+    /**
+     * Method insert in DB in table 'payments'
+     * new payment from entity.
+     *
+     * @param payment get from command:
+     *                sendPayment -> checkPayment -> confirmPayment.
+     */
     public void insertPayment(Payment payment) throws DBException, SQLException {
         Connection con = getConnection();
         try {
             PreparedStatement ps = con.prepareStatement(SQL_INSERT_PAYMENT);
+            LOG.trace("Preparation statement: " + ps);
             if (payment.getCardId() != 0) {
                 ps.setLong(1, payment.getCardId());
             } else {
@@ -190,14 +213,22 @@ public final class DBManager {
             ps.setInt(5, payment.getStatusId());
             ps.executeUpdate();
             con.commit();
+            LOG.trace("Statement commit: " + ps);
         } catch (SQLException ex) {
             con.rollback();
-            throw new DBException();
+            LOG.error(Messages.ERR_CANNOT_INSERT_PAYMENT, ex);
+            throw new DBException(Messages.ERR_CANNOT_INSERT_PAYMENT, ex);
         } finally {
             close(con);
         }
     }
 
+    /**
+     * Find all items users in DB, which role = 'client'.
+     *
+     * @return list user, where stored all clients
+     * this program.
+     */
     public List<User> findAllUsersClient() throws DBException {
         List<User> usersList = new ArrayList<>();
         Statement stmt = null;
@@ -207,14 +238,16 @@ public final class DBManager {
             con = getConnection();
             stmt = con.createStatement();
             rs = stmt.executeQuery(SQL_FIND_ALL_CLIENTS);
+            LOG.trace("Get result set for listUsers: " + rs);
             while (rs.next()) {
                 usersList.add(extractUser(rs));
             }
             con.commit();
+            LOG.trace("Commit connection: " + rs);
         } catch (SQLException ex) {
             rollback(con);
-            LOG.error(Messages.ERR_CANNOT_OBTAIN_MENU_ITEMS, ex);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_MENU_ITEMS, ex);
+            LOG.error(Messages.ERR_CANNOT_FIND_ALL_USERS, ex);
+            throw new DBException(Messages.ERR_CANNOT_FIND_ALL_USERS, ex);
         } finally {
             close(con, stmt, rs);
         }
@@ -238,12 +271,15 @@ public final class DBManager {
             pstmt = con.prepareStatement(SQL_FIND_USER_BY_ID);
             pstmt.setLong(1, id);
             rs = pstmt.executeQuery();
+            LOG.trace("Get result set for listUsers: " + rs);
             if (rs.next()) {
                 user = extractUser(rs);
             }
             con.commit();
+            LOG.trace("Commit connection: " + rs);
         } catch (SQLException ex) {
             rollback(con);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_USER_BY_ID, ex);
             throw new DBException(Messages.ERR_CANNOT_OBTAIN_USER_BY_ID, ex);
         } finally {
             close(con, pstmt, rs);
@@ -251,6 +287,13 @@ public final class DBManager {
         return user;
     }
 
+    /**
+     * Return a card with the given identifier.
+     *
+     * @param id Card identifier.
+     * @return card entity.
+     * @throws DBException
+     */
     public Card findCard(long id) throws DBException {
         Card card = null;
         PreparedStatement pstmt = null;
@@ -259,21 +302,31 @@ public final class DBManager {
         try {
             con = getConnection();
             pstmt = con.prepareStatement(SQL_FIND_CARD_BY_ID);
+            LOG.trace("Get prepared: " + pstmt);
             pstmt.setLong(1, id);
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 card = extractCard(rs);
             }
             con.commit();
+            LOG.trace("Commin connection " + con);
         } catch (SQLException | DBException ex) {
             rollback(con);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_USER_BY_ID, ex);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_CARD_BY_ID, ex);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_CARD_BY_ID, ex);
         } finally {
             close(con, pstmt, rs);
         }
         return card;
     }
 
+    /**
+     * Return a card with the given number.
+     *
+     * @param number Card field.
+     * @return card entity.
+     * @throws DBException
+     */
     public Card findCardByNumber(long number) throws DBException {
         Card card = null;
         PreparedStatement pstmt = null;
@@ -282,21 +335,31 @@ public final class DBManager {
         try {
             con = getConnection();
             pstmt = con.prepareStatement(SQL_FIND_CARD_BY_NUMBER);
+            LOG.trace("Get prepared: " + pstmt);
             pstmt.setLong(1, number);
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 card = extractCard(rs);
             }
             con.commit();
+            LOG.trace("Commin connection " + con);
         } catch (SQLException | DBException ex) {
             rollback(con);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_USER_BY_ID, ex);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_CARD_BY_NUMBER, ex);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_CARD_BY_NUMBER, ex);
         } finally {
             close(con, pstmt, rs);
         }
         return card;
     }
 
+    /**
+     * Return a payment with the given id.
+     *
+     * @param id Payment identifier.
+     * @return payment entity
+     * @throws DBException
+     */
     public Payment findPayment(long id) throws DBException {
         Payment payment = null;
         PreparedStatement pstmt = null;
@@ -305,45 +368,74 @@ public final class DBManager {
         try {
             con = getConnection();
             pstmt = con.prepareStatement(SQL_FIND_PAYMENT_BY_ID);
+            LOG.trace("Get prepared: " + pstmt);
             pstmt.setLong(1, id);
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 payment = extractPayment(rs);
             }
             con.commit();
+            LOG.trace("Commit connection " + con);
         } catch (SQLException | DBException ex) {
             rollback(con);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_USER_BY_ID, ex);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_PAYMENT_BY_ID, ex);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_PAYMENT_BY_ID, ex);
         } finally {
             close(con, pstmt, rs);
         }
         return payment;
     }
 
+    /**
+     * Update given payment in DB by now parameters.
+     *
+     * @param payment - from command defer, updating in DB.'
+     * @throws DBException
+     */
     public void updatePayment(Payment payment) throws DBException {
         PreparedStatement pstmt = null;
         Connection con = null;
         try {
             con = getConnection();
             pstmt = con.prepareStatement(SQL_UPDATE_PAYMENT);
+            LOG.trace("Get prepared: " + pstmt);
             pstmt.setLong(1, payment.getStatusId());
             pstmt.setLong(2, payment.getBalance());
             pstmt.setLong(3, payment.getId());
             pstmt.executeUpdate();
             con.commit();
+            LOG.trace("Commit connection " + con);
         } catch (SQLException | DBException ex) {
             rollback(con);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_USER_BY_ID, ex);
+            LOG.error(Messages.ERR_CANNOT_UPDATE_PAYMENT, ex);
+            throw new DBException(Messages.ERR_CANNOT_UPDATE_PAYMENT, ex);
         } finally {
             close(con);
             close(pstmt);
         }
     }
 
+    /**
+     * Get user by method findUser, with arguments
+     * gets from method findCard, which get id Card
+     * by user id, which the gets from field in entity.
+     *
+     * @param id Card identifier
+     * @return User entity, got from other methods.
+     * @throws DBException
+     */
     public User findUserByCardId(int id) throws DBException {
+        LOG.trace("Go to many methods");
         return findUser(findCard(id).getUserId());
     }
 
+    /**
+     * Find user`s cards, by identifier user.
+     *
+     * @param user entity.
+     * @return list cards owned by user entity.
+     * @throws DBException
+     */
     public List<Card> getUserCards(User user) throws DBException {
         List<Card> cards = new ArrayList<>();
         PreparedStatement stmt = null;
@@ -352,23 +444,32 @@ public final class DBManager {
         try {
             con = getConnection();
             stmt = con.prepareStatement(SQL_FIND_USER_CARDS);
+            LOG.trace("Get prepared: " + stmt);
             stmt.setLong(1, user.getId());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 cards.add(extractCard(rs));
             }
             con.commit();
+            LOG.trace("Commit connection " + con);
         } catch (SQLException | DBException ex) {
             rollback(con);
-            LOG.error(Messages.ERR_CANNOT_OBTAIN_MENU_ITEMS, ex);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_MENU_ITEMS, ex);
+            LOG.error(Messages.ERR_CANNOT_FIND_ALL_CARDS, ex);
+            throw new DBException(Messages.ERR_CANNOT_FIND_ALL_CARDS, ex);
         } finally {
             close(con, stmt, rs);
         }
-
         return cards;
     }
 
+    /**
+     * Return all payments from DB get by request,
+     * what get cards by user id and payments get by card id.
+     *
+     * @param user entity.
+     * @return list payments by user id.
+     * @throws DBException
+     */
     public List<Payment> getUserPayments(User user) throws DBException {
         List<Payment> payments = new ArrayList<>();
         PreparedStatement stmt = null;
@@ -377,22 +478,32 @@ public final class DBManager {
         try {
             con = getConnection();
             stmt = con.prepareStatement(SQL_USER_PAYMENTS);
+            LOG.trace("Get prepared: " + stmt);
             stmt.setLong(1, user.getId());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 payments.add(extractPayment(rs));
             }
             con.commit();
+            LOG.trace("Commit connection " + con);
         } catch (SQLException | DBException ex) {
             rollback(con);
-            LOG.error(Messages.ERR_CANNOT_OBTAIN_MENU_ITEMS, ex);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_MENU_ITEMS, ex);
+            LOG.error(Messages.ERR_CANNOT_FIND_ALL_PAYMENTS, ex);
+            throw new DBException(Messages.ERR_CANNOT_FIND_ALL_PAYMENTS, ex);
         } finally {
             close(con, stmt, rs);
         }
         return payments;
     }
 
+    /**
+     * Return all payments which the income to user from DB get by request,
+     * what get cards by user id and payments get by card id.
+     *
+     * @param user entity.
+     * @return list payments income by user id.
+     * @throws DBException
+     */
     public List<Payment> getUserIncome(User user) throws DBException {
         List<Payment> payments = new ArrayList<>();
         PreparedStatement stmt = null;
@@ -401,22 +512,31 @@ public final class DBManager {
         try {
             con = getConnection();
             stmt = con.prepareStatement(SQL_USER_INCOME);
+            LOG.trace("Get prepared: " + stmt);
             stmt.setLong(1, user.getId());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 payments.add(extractPayment(rs));
             }
             con.commit();
+            LOG.trace("Commit connection " + con);
         } catch (SQLException | DBException ex) {
             rollback(con);
-            LOG.error(Messages.ERR_CANNOT_OBTAIN_MENU_ITEMS, ex);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_MENU_ITEMS, ex);
+            LOG.error(Messages.ERR_CANNOT_FIND_ALL_PAYMENTS, ex);
+            throw new DBException(Messages.ERR_CANNOT_FIND_ALL_PAYMENTS, ex);
         } finally {
             close(con, stmt, rs);
         }
         return payments;
     }
 
+    /**
+     * Get cards from DB, which the requests to unblock cards.
+     *
+     * @return list cards, where need show
+     * in administrator page for unblock.
+     * @throws DBException
+     */
     public List<Card> getCardsWithRequest() throws DBException {
         List<Card> cards = new ArrayList<>();
         PreparedStatement stmt = null;
@@ -425,15 +545,17 @@ public final class DBManager {
         try {
             con = getConnection();
             stmt = con.prepareStatement(SQL_FIND_CARDS_REQUEST);
+            LOG.trace("Get prepared: " + stmt);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 cards.add(extractCard(rs));
             }
             con.commit();
+            LOG.trace("Commit connection " + con);
         } catch (SQLException | DBException ex) {
             rollback(con);
-            LOG.error(Messages.ERR_CANNOT_OBTAIN_MENU_ITEMS, ex);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_MENU_ITEMS, ex);
+            LOG.error(Messages.ERR_CANNOT_FIND_ALL_CARDS, ex);
+            throw new DBException(Messages.ERR_CANNOT_FIND_ALL_CARDS, ex);
         } finally {
             close(con, stmt, rs);
         }
@@ -455,14 +577,17 @@ public final class DBManager {
         try {
             con = getConnection();
             pstmt = con.prepareStatement(SQL_FIND_USER_BY_LOGIN);
+            LOG.trace("Get prepared: " + pstmt);
             pstmt.setString(1, login);
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 user = extractUser(rs);
             }
             con.commit();
+            LOG.trace("Commit connection " + con);
         } catch (SQLException ex) {
             rollback(con);
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_USER_BY_LOGIN, ex);
             throw new DBException(Messages.ERR_CANNOT_OBTAIN_USER_BY_LOGIN, ex);
         } finally {
             close(con, pstmt, rs);
@@ -470,6 +595,13 @@ public final class DBManager {
         return user;
     }
 
+    /**
+     * Get from DB count requests for certain users.
+     *
+     * @param user entity.
+     * @return number user`s requests.
+     * @throws DBException
+     */
     public int countRequest(User user) throws DBException {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -478,21 +610,30 @@ public final class DBManager {
         try {
             con = getConnection();
             pstmt = con.prepareStatement(SQL_COUNT_REQUEST);
+            LOG.trace("Get prepared: " + pstmt);
             pstmt.setLong(1, user.getId());
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 count = rs.getInt("COUNTREQ");
             }
             con.commit();
+            LOG.trace("Commit connection " + con);
         } catch (SQLException ex) {
             rollback(con);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_USER_BY_LOGIN, ex);
+            LOG.error(Messages.ERR_CANNOT_COUNT_REQUESTS, ex);
+            throw new DBException(Messages.ERR_CANNOT_COUNT_REQUESTS, ex);
         } finally {
             close(con, pstmt, rs);
         }
         return count;
     }
 
+    /**
+     * Get from DB count requests for all users.
+     *
+     * @return number all users`s requests.
+     * @throws DBException
+     */
     public int countRequestAdmin() throws DBException {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -501,14 +642,17 @@ public final class DBManager {
         try {
             con = getConnection();
             pstmt = con.prepareStatement(SQL_COUNT_REQUEST_ADMIN);
+            LOG.trace("Get prepared: " + pstmt);
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 count = rs.getInt("COUNTREQ");
             }
             con.commit();
+            LOG.trace("Commit connection " + con);
         } catch (SQLException ex) {
             rollback(con);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_USER_BY_LOGIN, ex);
+            LOG.error(Messages.ERR_CANNOT_COUNT_REQUESTS, ex);
+            throw new DBException(Messages.ERR_CANNOT_COUNT_REQUESTS, ex);
         } finally {
             close(con, pstmt, rs);
         }
@@ -526,14 +670,17 @@ public final class DBManager {
         Connection con = getConnection();
         try {
             statement = con.prepareStatement(SQL_UPDATE_USER);
+            LOG.trace("Get prepared: " + statement);
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
             statement.setInt(3, user.getActivityId());
             statement.setLong(4, user.getId());
             statement.executeUpdate();
             con.commit();
+            LOG.trace("Commit connection " + con);
         } catch (SQLException e) {
             con.rollback();
+            LOG.error(Messages.ERR_CANNOT_UPDATE_USER, e);
             e.printStackTrace();
         } finally {
             close(con);
@@ -541,17 +688,27 @@ public final class DBManager {
         }
     }
 
+    /**
+     * Delete payment by id.
+     *
+     * @param id payment identifier.
+     * @throws DBException
+     * @throws SQLException
+     */
     public void deletePayment(long id) throws DBException, SQLException {
         PreparedStatement statement = null;
         Connection con = getConnection();
         try {
             statement = con.prepareStatement(SQL_DELETE_PAYMENT);
+            LOG.trace("Get prepared: " + statement);
             statement.setLong(1, id);
             statement.executeUpdate();
             con.commit();
+            LOG.trace("Commit connection " + con);
         } catch (SQLException e) {
             con.rollback();
-            e.printStackTrace();
+            LOG.error(Messages.ERR_CANNOT_DELETE_PAYMENT, e);
+            throw new DBException(Messages.ERR_CANNOT_DELETE_PAYMENT, e);
         } finally {
             close(con);
             close(statement);
@@ -559,29 +716,36 @@ public final class DBManager {
     }
 
 
+    /**
+     * Update card in DB by entity.
+     *
+     * @param card entity.
+     * @throws DBException
+     * @throws SQLException
+     */
     public void updateCard(Card card) throws DBException, SQLException {
         PreparedStatement statement = null;
         Connection con = getConnection();
         try {
             statement = con.prepareStatement(SQL_UPDATE_CARD_ACTIVITY_REQUEST);
+            LOG.trace("Get prepared: " + statement);
             statement.setInt(1, card.getActivityId());
             statement.setInt(2, card.getRequestId());
             statement.setInt(3, card.getMoney());
             statement.setLong(4, card.getId());
             statement.executeUpdate();
             con.commit();
+            LOG.trace("Commit connection " + con);
         } catch (SQLException e) {
             con.rollback();
             e.printStackTrace();
+            LOG.error(Messages.ERR_CANNOT_UPDATE_CARD, e);
+            throw new DBException(Messages.ERR_CANNOT_UPDATE_CARD, e);
         } finally {
             close(con);
             close(statement);
         }
     }
-
-    // //////////////////////////////////////////////////////////
-    // Entity access methods (for transactions)
-    // //////////////////////////////////////////////////////////
 
 
     // //////////////////////////////////////////////////////////
@@ -675,6 +839,12 @@ public final class DBManager {
         return user;
     }
 
+    /**
+     * Extracts a card entity from the result set.
+     *
+     * @param rs Result set from which a user entity will be extracted.
+     * @return Card entity
+     */
     private Card extractCard(ResultSet rs) throws SQLException {
         Card card = new Card();
         card.setId(rs.getLong(Fields.ENTITY_ID));
@@ -687,6 +857,12 @@ public final class DBManager {
         return card;
     }
 
+    /**
+     * Extracts a payment entity from the result set.
+     *
+     * @param rs Result set from which a payment entity will be extracted.
+     * @return Payment entity
+     */
     private Payment extractPayment(ResultSet rs) throws SQLException {
         Payment payment = new Payment();
         payment.setId(rs.getLong(Fields.ENTITY_ID));

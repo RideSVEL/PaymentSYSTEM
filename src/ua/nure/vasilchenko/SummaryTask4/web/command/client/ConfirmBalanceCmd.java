@@ -1,11 +1,14 @@
 package ua.nure.vasilchenko.SummaryTask4.web.command.client;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import ua.nure.vasilchenko.SummaryTask4.Path;
 import ua.nure.vasilchenko.SummaryTask4.db.DBManager;
 import ua.nure.vasilchenko.SummaryTask4.db.entity.Card;
 import ua.nure.vasilchenko.SummaryTask4.db.entity.Payment;
+import ua.nure.vasilchenko.SummaryTask4.db.entity.User;
 import ua.nure.vasilchenko.SummaryTask4.exception.AppException;
+import ua.nure.vasilchenko.SummaryTask4.exception.Messages;
 import ua.nure.vasilchenko.SummaryTask4.web.command.base.Command;
 
 import javax.servlet.ServletException;
@@ -23,6 +26,10 @@ public class ConfirmBalanceCmd extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.debug("Command starts");
+        User user = (User) request.getSession().getAttribute("user");
+        if (!user.getPassword().equals(DigestUtils.md5Hex(request.getParameter("password")))) {
+            throw new AppException(Messages.YOUR_PASSWORD_DOES_NOT_MATCH);
+        }
         String id = (String) request.getSession().getAttribute("card_id");
         String sum = (String) request.getSession().getAttribute("sum");
         DBManager manager = DBManager.getInstance();

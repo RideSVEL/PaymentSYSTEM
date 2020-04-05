@@ -16,6 +16,7 @@ import ua.nure.vasilchenko.SummaryTask4.db.DBManager;
 import ua.nure.vasilchenko.SummaryTask4.db.entity.Payment;
 import ua.nure.vasilchenko.SummaryTask4.exception.AppException;
 import ua.nure.vasilchenko.SummaryTask4.exception.DBException;
+import ua.nure.vasilchenko.SummaryTask4.exception.Messages;
 import ua.nure.vasilchenko.SummaryTask4.web.command.base.Command;
 
 import javax.servlet.ServletException;
@@ -81,7 +82,7 @@ public class GetPDFCmd extends Command {
 
         String paymentId = request.getParameter("payment_id");
         if (paymentId == null || paymentId.isEmpty()) {
-            throw new AppException("Error");
+            throw new AppException(Messages.ERROR);
         }
         String fileName = null;
         try {

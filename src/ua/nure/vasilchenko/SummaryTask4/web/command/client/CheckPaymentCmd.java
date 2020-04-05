@@ -6,6 +6,7 @@ import ua.nure.vasilchenko.SummaryTask4.db.DBManager;
 import ua.nure.vasilchenko.SummaryTask4.db.Fields;
 import ua.nure.vasilchenko.SummaryTask4.db.entity.Card;
 import ua.nure.vasilchenko.SummaryTask4.exception.AppException;
+import ua.nure.vasilchenko.SummaryTask4.exception.Messages;
 import ua.nure.vasilchenko.SummaryTask4.web.command.base.Command;
 
 import javax.servlet.ServletException;
@@ -28,25 +29,25 @@ public class CheckPaymentCmd extends Command {
         String destination = request.getParameter("destination");
         DBManager manager = DBManager.getInstance();
         if (sum == null || id == null || destination == null || id.isEmpty() || sum.isEmpty() || destination.isEmpty()) {
-            throw new AppException("fields cannot be empty ");
+            throw new AppException(Messages.FIELDS_CANNOT_BE_EMPTY);
         }
         int sumPayment = Integer.parseInt(sum);
         if (sumPayment > Fields.PAYMENT_MAX_SUM) {
-            throw new AppException("Sum higher than max payment sum");
+            throw new AppException(Messages.SUM_HIGHER_THAN_MAX);
         }
         if (destination.length() != Fields.CARDS_NUMBER) {
-            throw new AppException("Card destination is not valid");
+            throw new AppException(Messages.CARD_DESTINATION_IS_NOT_VALID);
         }
         Card card = manager.findCard(Integer.parseInt(id));
         if (card.getMoney() < sumPayment) {
-            throw new AppException("Sum higher than number money on card");
+            throw new AppException(Messages.SUM_HIGHER_THAN_MONEY);
         }
         Card destinationCard = manager.findCardByNumber(Long.parseLong(destination));
         if (destinationCard == null) {
-            throw new AppException("Destination card does not exists");
+            throw new AppException(Messages.DESTINATION_CARD_DOES_NOTE_EXISTS);
         }
         if (destinationCard.getActivityId() == 1) {
-            throw new AppException("Card user was blocked");
+            throw new AppException(Messages.CARD_USER_WAS_BLOCKED);
         }
 
         HttpSession session = request.getSession();

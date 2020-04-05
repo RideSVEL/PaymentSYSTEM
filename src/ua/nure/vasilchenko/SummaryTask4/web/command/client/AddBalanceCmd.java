@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import ua.nure.vasilchenko.SummaryTask4.Path;
 import ua.nure.vasilchenko.SummaryTask4.db.Fields;
 import ua.nure.vasilchenko.SummaryTask4.exception.AppException;
+import ua.nure.vasilchenko.SummaryTask4.exception.Messages;
 import ua.nure.vasilchenko.SummaryTask4.web.command.base.Command;
 
 import javax.servlet.ServletException;
@@ -24,10 +25,10 @@ public class AddBalanceCmd extends Command {
         String id = request.getParameter("card_id");
         String sum = request.getParameter("sum");
         if (sum == null || id == null || id.isEmpty() || sum.isEmpty()) {
-            throw new AppException("fields cannot be empty ");
+            throw new AppException(Messages.FIELDS_CANNOT_BE_EMPTY);
         }
         if (Integer.parseInt(sum) > Fields.PAYMENT_MAX_SUM) {
-            throw new AppException("Sum higher than max payment sum");
+            throw new AppException(Messages.SUM_HIGHER_THAN_MAX);
         }
         HttpSession session = request.getSession();
         session.setAttribute("card_id", id);

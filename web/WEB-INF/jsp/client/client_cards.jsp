@@ -112,8 +112,7 @@
                                                 <span class="sr-only">Loading...</span>
                                             </div>
                                             <h5 id="exampleModalLabel2" class="modal-title text-uppercase text-dark">
-                                                &nbsp; Blocking
-                                                card</h5>
+                                                &nbsp; <fmt:message key="jsp.blocking.card"/></h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -125,7 +124,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    Close
+                                                    <fmt:message key="jsp.close"/>
                                                 </button>
                                                 <form action="controller" method="post">
                                                     <input type="hidden" name="command" value="blockUserCard"/>
@@ -156,8 +155,7 @@
                                             </div>
                                             <h5 align="center" id="exampleModalLabel3"
                                                 class="modal-title text-uppercase text-dark">
-                                                &nbsp; Request for
-                                                administrator</h5>
+                                                &nbsp; <fmt:message key="jsp.request_for_admin"/></h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -169,7 +167,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    Close
+                                                    <fmt:message key="jsp.close"/>
                                                 </button>
                                                 <form action="controller" method="get">
                                                     <input type="hidden" name="command" value="requestUserCardUnblock"/>
@@ -185,7 +183,7 @@
                         </c:if>
                     </c:if>
                     <c:if test="${card.requestId == 1}">
-                        Under consideration
+                        <fmt:message key="jsp.consideration"/>
                     </c:if>
                 </div>
             </div>

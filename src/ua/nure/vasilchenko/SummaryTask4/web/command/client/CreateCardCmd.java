@@ -7,6 +7,7 @@ import ua.nure.vasilchenko.SummaryTask4.db.DBManager;
 import ua.nure.vasilchenko.SummaryTask4.db.entity.Card;
 import ua.nure.vasilchenko.SummaryTask4.db.entity.User;
 import ua.nure.vasilchenko.SummaryTask4.exception.AppException;
+import ua.nure.vasilchenko.SummaryTask4.exception.Messages;
 import ua.nure.vasilchenko.SummaryTask4.web.command.base.Command;
 
 import javax.servlet.ServletException;
@@ -27,14 +28,14 @@ public class CreateCardCmd extends Command {
         LOG.debug("Command starts");
         String name = request.getParameter("name");
         if (name == null || name.isEmpty()) {
-            throw new AppException("Fields cannot be empty");
+            throw new AppException(Messages.FIELDS_CANNOT_BE_EMPTY);
         }
         DBManager manager = DBManager.getInstance();
         User user = (User) request.getSession().getAttribute("user");
         List<Card> cards = manager.getUserCards(user);
         for (Card card : cards) {
             if (name.equals(card.getName())) {
-                throw new AppException("Card with this name is already exists");
+                throw new AppException(Messages.CARD_WITH_THIS_NAME_ALREADY_EXISTS);
             }
         }
         Card card = new Card();

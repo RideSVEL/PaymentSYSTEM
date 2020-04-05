@@ -8,6 +8,7 @@ import ua.nure.vasilchenko.SummaryTask4.db.entity.User;
 import ua.nure.vasilchenko.SummaryTask4.db.enumeration.Activity;
 import ua.nure.vasilchenko.SummaryTask4.db.enumeration.Role;
 import ua.nure.vasilchenko.SummaryTask4.exception.AppException;
+import ua.nure.vasilchenko.SummaryTask4.exception.Messages;
 import ua.nure.vasilchenko.SummaryTask4.web.command.base.Command;
 
 import javax.servlet.ServletException;
@@ -42,7 +43,7 @@ public class LoginCommand extends Command {
 
 		String password = request.getParameter("password");
 		if (login == null || password == null || login.isEmpty() || password.isEmpty()) {
-			throw new AppException("Login/password cannot be empty");
+			throw new AppException(Messages.LOGINPASSWORD_CANNOT_BE_EMPTY);
 		}
 
 		User user = manager.findUserByLogin(login);
@@ -51,13 +52,13 @@ public class LoginCommand extends Command {
 		String md5Hex = DigestUtils.md5Hex(password);
 
 		if (user == null || !md5Hex.equals(user.getPassword())) {
-			throw new AppException("Cannot find user with such login/password");
+			throw new AppException(Messages.CANNOT_FIND_USER_WITH_SUCH_LOGIN);
 		}
 
 		Activity activity = Activity.getActivity(user);
 		LOG.trace("userActivity --> " + activity);
 		if (activity == Activity.BLOCKED) {
-			throw new AppException("Your account was blocked");
+			throw new AppException(Messages.YOUR_ACCOUNT_WAS_BLOCKED);
 		}
 
 		Role userRole = Role.getRole(user);

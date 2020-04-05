@@ -6,6 +6,7 @@ import ua.nure.vasilchenko.SummaryTask4.db.DBManager;
 import ua.nure.vasilchenko.SummaryTask4.db.entity.Card;
 import ua.nure.vasilchenko.SummaryTask4.db.entity.Payment;
 import ua.nure.vasilchenko.SummaryTask4.exception.AppException;
+import ua.nure.vasilchenko.SummaryTask4.exception.Messages;
 import ua.nure.vasilchenko.SummaryTask4.web.command.base.Command;
 
 import javax.servlet.ServletException;
@@ -26,22 +27,22 @@ public class ConfirmDeferCmd extends Command {
         String id = request.getParameter("payment_id");
         DBManager manager = DBManager.getInstance();
         if (id == null || id.isEmpty()) {
-            throw new AppException("fields cannot be empty ");
+            throw new AppException(Messages.FIELDS_CANNOT_BE_EMPTY);
         }
         Payment payment = manager.findPayment(Long.parseLong(id));
         if (payment == null) {
-            throw new AppException("Payment don`t created");
+            throw new AppException(Messages.PAYMENT_DONT_CREATED);
         }
         Card card = manager.findCard(payment.getCardId());
         if (card.getActivityId() == 1) {
-            throw new AppException("Your card was blocked");
+            throw new AppException(Messages.YOUR_CARD_WAS_BLOCKED);
         }
         Card destinationCard = manager.findCard(payment.getCardDestinationId());
         if (destinationCard.getActivityId() == 1) {
-            throw new AppException("Card destination user was blocked");
+            throw new AppException(Messages.CARD_DESTINATION_USER_WAS_BLOCKED);
         }
         if (card.getMoney() < payment.getMoney()) {
-            throw new AppException("Insufficient funds in the account.");
+            throw new AppException(Messages.INSUFFISIENT_FUNDS_IN_THE_ACCOUNT);
         }
         card.setMoney(card.getMoney() - payment.getMoney());
         destinationCard.setMoney(destinationCard.getMoney() + payment.getMoney());

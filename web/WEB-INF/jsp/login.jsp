@@ -24,25 +24,25 @@
             <form role="form" id="login_form" action="controller" method="post" target="_parent">
                 <input type="hidden" name="command" value="login"/>
                 <div class="form-group ">
-                    <label for="login"><fmt:message key="jsp.login"/></label>
+                    <label for="login"><fmt:message key="jsp.username"/></label>
                     <div class="input-group shadow-lg">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">@</span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                        <input type="text" class="form-control" placeholder="<fmt:message key="jsp.username"/>" aria-label="Username"
                                aria-describedby="basic-addon1" name="login" id="login" required pattern="[\w&#1072;-&#1103;&#1040;-&#1071;]{5,20}">
                     </div>
                 </div>
                 <div class="form-group ">
                     <label for="password"><fmt:message key="jsp.password"/></label>
                     <input type="password" name="password" id="password" class="form-control shadow-lg"
-                           placeholder="Password" required pattern="[\w&#1072;-&#1103;&#1040;-&#1071;]{5,20}"/>
+                           placeholder="<fmt:message key="jsp.password"/>" required pattern="[\w&#1072;-&#1103;&#1040;-&#1071;]{5,20}"/>
                 </div>
                 <input type="submit" class="btn btn-success btn-block shadow-lg "
                        value="<fmt:message key="jsp.header.login"/>" >
             </form>
             <p class="mt-2" style="font-size: small">
-                Don't have an account yet? <a href="${pageContext.request.contextPath}/register">Register now</a>
+                <fmt:message key="jsp.dont_have_an_account"/> <a href="${pageContext.request.contextPath}/register"><fmt:message key="jsp.register_now"/></a>
             </p>
         </div>
     </div>

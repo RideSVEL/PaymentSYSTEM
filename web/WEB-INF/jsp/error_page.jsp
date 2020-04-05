@@ -28,7 +28,7 @@
 				</c:if>			
 				
 				<c:if test="${not empty message}">
-					<h3>${message}</h3>
+					<h3>"${message}</h3>
 				</c:if>
 				
 				<c:if test="${not empty exception}">
@@ -37,15 +37,10 @@
 				
 				<%-- if we get this page using forward --%>
 				<c:if test="${not empty requestScope.errorMessage}">
-					<h3>${requestScope.errorMessage}</h3>
+					<h3><fmt:message key="${requestScope.errorMessage}"/></h3>
 				</c:if>
-
-			<%-- CONTENT --%>
-			</td>
-		</tr>
-
-		<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 		
 	</div>
+<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
 </html>

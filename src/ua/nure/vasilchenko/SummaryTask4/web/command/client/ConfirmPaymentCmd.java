@@ -8,6 +8,7 @@ import ua.nure.vasilchenko.SummaryTask4.db.entity.Card;
 import ua.nure.vasilchenko.SummaryTask4.db.entity.Payment;
 import ua.nure.vasilchenko.SummaryTask4.db.entity.User;
 import ua.nure.vasilchenko.SummaryTask4.exception.AppException;
+import ua.nure.vasilchenko.SummaryTask4.exception.Messages;
 import ua.nure.vasilchenko.SummaryTask4.web.command.base.Command;
 
 import javax.servlet.ServletException;
@@ -27,7 +28,7 @@ public class ConfirmPaymentCmd extends Command {
         LOG.debug("Command starts");
         User user = (User) request.getSession().getAttribute("user");
         if (!user.getPassword().equals(DigestUtils.md5Hex(request.getParameter("password")))) {
-            throw new AppException("Your password doesnt match");
+            throw new AppException(Messages.YOUR_PASSWORD_DOES_NOT_MATCH);
         }
         String id = (String) request.getSession().getAttribute("card_id");
         String sum = (String) request.getSession().getAttribute("sum");

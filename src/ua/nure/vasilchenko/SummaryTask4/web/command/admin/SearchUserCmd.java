@@ -5,6 +5,7 @@ import ua.nure.vasilchenko.SummaryTask4.Path;
 import ua.nure.vasilchenko.SummaryTask4.db.DBManager;
 import ua.nure.vasilchenko.SummaryTask4.db.entity.User;
 import ua.nure.vasilchenko.SummaryTask4.exception.AppException;
+import ua.nure.vasilchenko.SummaryTask4.exception.Messages;
 import ua.nure.vasilchenko.SummaryTask4.web.command.base.Command;
 
 import javax.servlet.ServletException;
@@ -28,7 +29,7 @@ public class SearchUserCmd extends Command {
         User user;
         String search = request.getParameter("search");
         if (search == null || search.isEmpty()) {
-            throw new AppException("No such user with this login - " + search);
+            throw new AppException(Messages.NO_SUCH_USER_WITH_THIS_LOGIN + search);
         } else {
             user = DBManager.getInstance().findUserByLogin(search);
         }
@@ -37,7 +38,7 @@ public class SearchUserCmd extends Command {
         if (user != null){
         users.add(user);
         } else {
-            throw new AppException("No such user with this login - " + search);
+            throw new AppException(Messages.NO_SUCH_USER_WITH_THIS_LOGIN + search);
         }
         LOG.trace("Found in DB: usersList --> " + users);
 

@@ -25,27 +25,36 @@
         <ul class="navbar-nav ml-auto">
             <c:if test="${userRole.name == 'admin'}">
                 <li class="nav-item ${activeUsers}">
-                    <a data-toggle="tooltip" data-placement="bottom" title="Show all user accounts" class="nav-link text-uppercase" href="controller?command=listUsers"><fmt:message key="jsp.header.users"/></a>
+                    <a data-toggle="tooltip" data-placement="bottom" title="<fmt:message key="jsp.show_users"/>"
+                       class="nav-link text-uppercase" href="controller?command=listUsers"><fmt:message
+                            key="jsp.header.users"/></a>
                 </li>
-                <li data-toggle="tooltip" data-placement="bottom" title="Request users for unblock card`s" class="nav-item ${activeRequests}">
+                <li data-toggle="tooltip" data-placement="bottom" title="<fmt:message key="jsp.request_user_for_unblock"/>"
+                    class="nav-item ${activeRequests}">
                     <a class="nav-link text-uppercase"
-                                        href="controller?command=showRequests"><fmt:message key="jsp.requests"/>
+                       href="controller?command=showRequests"><fmt:message key="jsp.requests"/>
                         <span class="badge badge-pill badge-secondary">${countAdmin}</span>
-                      </a>
+                    </a>
                 </li>
             </c:if>
             <c:if test="${userRole.name == 'client'}">
                 <li class="nav-item ${activeCards}">
-                    <a data-toggle="tooltip" data-placement="bottom" title="Show all cards" class="nav-link text-uppercase"
+                    <a data-toggle="tooltip" data-placement="bottom" title="<fmt:message key="jsp.show_cards"/>"
+                       class="nav-link text-uppercase"
                        href="controller?command=userShowCards&sorting=name&order=ascending&filter=all">
                         <fmt:message key="jsp.cards"/></a>
                 </li>
-                <li class="nav-item ${activePayments}"><a data-toggle="tooltip" data-placement="bottom" title="Show all payments" class="nav-link text-uppercase" href="controller?command=showPayments">
+                <li class="nav-item ${activePayments}"><a data-toggle="tooltip" data-placement="bottom"
+                                                          title="<fmt:message key="jsp.show_payments"/>" class="nav-link text-uppercase"
+                                                          href="controller?command=showPayments">
                     <fmt:message key="jsp.header.payments"/></a></li>
-                <li class="nav-item ${activeIncome}"><a data-toggle="tooltip" data-placement="bottom" title="Show income payments" class="nav-link text-uppercase" href="controller?command=showIncome">
+                <li class="nav-item ${activeIncome}"><a data-toggle="tooltip" data-placement="bottom"
+                                                        title="<fmt:message key="jsp.show_income"/>" class="nav-link text-uppercase"
+                                                        href="controller?command=showIncome">
                     <fmt:message key="jsp.header.income"/></a></li>
                 <li class="nav-item dropdown">
-                    <a data-placement="bottom" title="All supported features" class="nav-link dropdown-toggle text-uppercase " href="#"  id="navbarDropdown" role="button"
+                    <a data-placement="bottom" title="<fmt:message key="jsp.all_futures"/>"
+                       class="nav-link dropdown-toggle text-uppercase " href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <fmt:message key="jsp.header.all.functions"/>
                     </a>
@@ -55,54 +64,65 @@
                             <input type="hidden" name="sorting" value="name"/>
                             <input type="hidden" name="order" value="ascending"/>
                             <input type="hidden" name="filter" value="all"/>
-                            <input class="dropdown-item text-white" type="submit" value="<fmt:message key="jsp.cards"/>"/>
+                            <input class="dropdown-item text-white" type="submit"
+                                   value="<fmt:message key="jsp.cards"/>"/>
                         </form>
                         <form action="controller" method="post">
                             <input type="hidden" name="command" value="commandCard"/>
-                            <input class="dropdown-item text-white" type="submit" value="<fmt:message key="jsp.create.card"/>"/>
+                            <input class="dropdown-item text-white" type="submit"
+                                   value="<fmt:message key="jsp.create.card"/>"/>
                         </form>
                         <form action="controller" method="post">
                             <input type="hidden" name="command" value="replenishBalance"/>
-                            <input class="dropdown-item text-white" type="submit" value="<fmt:message key="jsp.add.balance"/>"/>
+                            <input class="dropdown-item text-white" type="submit"
+                                   value="<fmt:message key="jsp.add.balance"/>"/>
                         </form>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-white" href="controller?command=showPayments">
                             <fmt:message key="jsp.header.payments"/></a>
-                        <a data-toggle="tooltip" data-placement="bottom" title="Income payments on this account" class="dropdown-item text-white" href="controller?command=showIncome">
+                        <a data-toggle="tooltip" data-placement="bottom" title="<fmt:message key="jsp.income_on"/>"
+                           class="dropdown-item text-white" href="controller?command=showIncome">
                             <fmt:message key="jsp.header.income"/></a>
                         <form action="controller" method="post">
                             <input type="hidden" name="command" value="sendPayment"/>
-                            <input data-toggle="tooltip" data-placement="bottom" title="Sending payment" class="dropdown-item text-white" type="submit" value="<fmt:message key="jsp.send.payment"/>"/>
+                            <input data-toggle="tooltip" data-placement="bottom" title="<fmt:message key="jsp.sending_payment"/>"
+                                   class="dropdown-item text-white" type="submit"
+                                   value="<fmt:message key="jsp.send.payment"/>"/>
                         </form>
                         <div class="dropdown-divider"></div>
                         <form action="controller" method="post">
                             <input type="hidden" name="command" value="showClientRequest"/>
-                            <button  class="dropdown-item text-white" type="submit">
-                                <fmt:message key="jsp.my.requests"/> <span class="badge badge-pill badge-secondary">${count}</span>
+                            <button class="dropdown-item text-white" type="submit">
+                                <fmt:message key="jsp.my.requests"/> <span
+                                    class="badge badge-pill badge-secondary">${count}</span>
                             </button>
                         </form>
                     </div>
                 </li>
             </c:if>
             <li class="nav-item ${activeSettings}">
-                <a data-toggle="tooltip" data-placement="bottom" title="Go to page with settings" class="nav-link text-uppercase" href=${pageContext.request.contextPath}/settings>
-                <fmt:message key="jsp.header.Settings"/></a>
+                <a data-toggle="tooltip" data-placement="bottom" title="<fmt:message key="jsp.go_to_settings"/>"
+                   class="nav-link text-uppercase" href=${pageContext.request.contextPath}/settings>
+                    <fmt:message key="jsp.header.Settings"/></a>
             </li>
             <c:choose>
                 <c:when test="${empty user and title ne 'Login'}">
                     <li class="nav-item ${activeLogin}">
-                        <a data-toggle="tooltip" data-placement="bottom" title="Login on this site" class="nav-link text-uppercase" href="${pageContext.request.contextPath}/login"><fmt:message
+                        <a data-toggle="tooltip" data-placement="bottom" title="<fmt:message key="jsp.login_on"/>"
+                           class="nav-link text-uppercase" href="${pageContext.request.contextPath}/login"><fmt:message
                                 key="jsp.header.login"/> </a>
                     </li>
                     <li class="nav-item ${activeRegister}">
-                        <a data-toggle="tooltip" data-placement="bottom" title="Register on this site" class="nav-link text-uppercase"
+                        <a data-toggle="tooltip" data-placement="bottom" title="<fmt:message key="jsp.register_on"/>"
+                           class="nav-link text-uppercase"
                            href="${pageContext.request.contextPath}/register"><fmt:message
                                 key="jsp.register"/></a>
                     </li>
                 </c:when>
                 <c:otherwise>
                     <li class="nav-item">
-                        <a data-toggle="tooltip" data-placement="bottom" title="Logout from the site" class="nav-link" href="controller?command=logout"> ${user.login} <i>(<fmt:message
+                        <a data-toggle="tooltip" data-placement="bottom" title="<fmt:message key="jsp.logout_from"/>" class="nav-link"
+                           href="controller?command=logout"> ${user.login} <i>(<fmt:message
                                 key="jsp.header.logout"/>)</i></a>
                     </li>
                 </c:otherwise>
