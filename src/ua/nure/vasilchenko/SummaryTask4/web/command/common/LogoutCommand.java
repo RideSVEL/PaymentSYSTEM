@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Logout command.
  *
- * @author D.Kolesnikov
+ * @author S. Vasilchenko
  */
 public class LogoutCommand extends Command {
 

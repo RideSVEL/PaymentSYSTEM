@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Command deleting defer payment.
+ *
+ * @author S. Vasilchenko
+ */
 public class DeleteDeferPaymentCmd extends Command {
 
     private static final long serialVersionUID = 77795462334L;

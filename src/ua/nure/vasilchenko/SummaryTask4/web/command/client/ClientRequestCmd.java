@@ -16,6 +16,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Sending request for administration on invert
+ * status card.
+ *
+ * @author S. Vasilchenko
+ */
 public class ClientRequestCmd extends Command {
 
     private static final long serialVersionUID = 7732123567234L;

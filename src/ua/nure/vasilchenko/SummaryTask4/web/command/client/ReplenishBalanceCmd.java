@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Command prepared cards for choosing to replenish balance.
+ *
+ * @author S. Vasilchenko
+ */
 public class ReplenishBalanceCmd extends Command {
 
     private static final long serialVersionUID = 77795462334L;

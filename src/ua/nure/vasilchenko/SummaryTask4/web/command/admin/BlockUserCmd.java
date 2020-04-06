@@ -13,11 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Update status user on 'BLOCKED' in DB.
+ *
+ * @author S. Vasilchenko
+ */
 public class BlockUserCmd extends Command {
 
     private static final long serialVersionUID = 77234589478505L;
 
     private static final Logger LOG = Logger.getLogger(BlockUserCmd.class);
+
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {

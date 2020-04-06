@@ -13,6 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Command for sending for admin request
+ * to unblocking certain card.
+ *
+ * @author S. Vasilchenko
+ */
 public class UserUnblockRequestCmd extends Command {
 
     private static final long serialVersionUID = 77212365478505L;

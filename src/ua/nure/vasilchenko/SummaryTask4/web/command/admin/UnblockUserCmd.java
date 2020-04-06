@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Updating in DB status user on 'ACTIVE'.
+ *
+ * @author S. Vasilchenko
+ */
 public class UnblockUserCmd extends Command {
 
     private static final long serialVersionUID = 77234589478505L;

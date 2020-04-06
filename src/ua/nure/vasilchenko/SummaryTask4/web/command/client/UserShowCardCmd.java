@@ -18,12 +18,24 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Command showing cards with parameters sorting.
+ *
+ * @author S. Vasilchenko
+ */
 public class UserShowCardCmd extends Command {
 
     private static final long serialVersionUID = 7732123567234L;
 
     private static final Logger LOG = Logger.getLogger(ShowCardsCmd.class);
 
+    /**
+     * Return list cards, only with choosing filter.
+     *
+     * @param cards - list all Cards for filtering.
+     * @param filter - for choosing filter.
+     * @return - list cards, only with choosing filter.
+     */
     private List<Card> filterCards(List<Card> cards, String filter) {
         List<Card> result = new ArrayList<>();
         switch (filter) {
@@ -50,6 +62,14 @@ public class UserShowCardCmd extends Command {
         return cards;
     }
 
+    /**
+     * Return list cards, sorted by special parameters.
+     *
+     * @param cards list all Cards for sorting.
+     * @param sorting - type sorting.
+     * @param order - destination sorting.
+     * @return - sorted list cards by type and destination.
+     */
     private List<Card> sortingCards(List<Card> cards, String sorting, String order) {
         switch (sorting) {
             case "name":

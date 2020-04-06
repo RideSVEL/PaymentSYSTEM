@@ -11,6 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Command confirm block card user.
+ *
+ * @author S. Vasilchenko
+ */
 public class ConfirmBlockCmd extends Command {
 
     private static final long serialVersionUID = 7723435677478505L;

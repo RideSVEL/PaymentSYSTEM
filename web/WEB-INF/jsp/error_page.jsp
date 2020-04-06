@@ -41,6 +41,6 @@
 				</c:if>
 		
 	</div>
-<%@ include file="/WEB-INF/jspf/footer.jspf"%>
+<%@ include file="/WEB-INF/jspf/scripts.jspf"%>
 </body>
 </html>

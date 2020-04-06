@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Showing on page all list users in system.
+ *
+ * @author S. Vasilchenko
+ */
 public class RejectReqCmd extends Command {
 
     private static final long serialVersionUID = 77287894555558505L;

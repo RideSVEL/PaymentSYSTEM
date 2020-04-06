@@ -13,6 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Gets from replanish.jsp.
+ * Forward on page with confirming replanish.
+ * Setting on session attribute for replanish.
+ *
+ * @author S. Vasilchenko
+ */
 public class AddBalanceCmd extends Command {
 
     private static final long serialVersionUID = 78542177478505L;

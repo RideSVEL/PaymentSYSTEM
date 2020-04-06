@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Forward on page "Creating card".
+ *
+ * @author S. Vasilchenko
+ */
 public class CardCmd extends Command {
 
     private static final long serialVersionUID = 78542177478505L;

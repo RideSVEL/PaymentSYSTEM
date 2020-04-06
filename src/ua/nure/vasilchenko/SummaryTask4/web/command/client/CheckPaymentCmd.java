@@ -15,6 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Checking payment on satisfying all condition payment.
+ * Throws exception, if they will be upset.
+ *
+ * @author S. Vasilchenko
+ */
 public class CheckPaymentCmd extends Command {
 
     private static final long serialVersionUID = 7851333478505L;

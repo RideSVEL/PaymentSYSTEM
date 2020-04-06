@@ -20,7 +20,7 @@ import java.io.IOException;
 /**
  * Login command.
  *
- * @author D.Kolesnikov
+ * @author S. Vasilchenko
  */
 public class LoginCommand extends Command {
 

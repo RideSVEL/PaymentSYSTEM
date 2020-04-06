@@ -11,6 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
+/**
+ * Updating in DB status card on 'ACTIVE'.
+ *
+ * @author S. Vasilchenko
+ */
 public class UnblockCardCmd extends Command {
 
     private static final long serialVersionUID = 7728888877478505L;

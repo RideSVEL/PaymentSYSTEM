@@ -13,6 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+
+/**
+ * Command confirming blocked card.
+ * Updated statuses in DB.
+ *
+ * @author S. Vasilchenko
+ */
 public class UserBlockCardCmd extends Command {
 
     private static final long serialVersionUID = 7723435677478505L;

@@ -1,5 +1,6 @@
 package ua.nure.vasilchenko.SummaryTask4.web.command.client;
 
+
 import org.apache.log4j.Logger;
 import ua.nure.vasilchenko.SummaryTask4.CardNumber;
 import ua.nure.vasilchenko.SummaryTask4.Path;
@@ -16,7 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-
+/**
+ * Command creating card for certain user.
+ * Insert new card on DB with user id.
+ *
+ * @author S. Vasilchenko
+ */
 public class CreateCardCmd extends Command {
 
     private static final long serialVersionUID = 3088745587456473L;

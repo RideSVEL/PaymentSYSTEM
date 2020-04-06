@@ -15,6 +15,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Gets from the page header.jspf.
+ * Find user in DB satisfying login in input field.
+ *
+ * @author S. Vasilchenko
+ */
 public class SearchUserCmd extends Command {
 
     private static final long serialVersionUID = 7732289478505L;

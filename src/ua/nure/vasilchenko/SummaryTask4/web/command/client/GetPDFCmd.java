@@ -27,12 +27,27 @@ import java.io.*;
 import java.rmi.server.ExportException;
 import java.util.Date;
 
+/**
+ * Command generated PDF report by
+ *
+ * @author S. Vasilchenko
+ */
 public class GetPDFCmd extends Command {
 
     private static final long serialVersionUID = 78548525105L;
 
     private static final Logger LOG = Logger.getLogger(GetPDFCmd.class);
 
+    /**
+     * Generate pdf file, by data in DB.
+     * Using library ITEXTPDF-5.5.13.1.
+     *
+     * @param paymentId - identifier payment on DB.
+     * @return name, of final file with report.
+     * @throws DocumentException
+     * @throws IOException
+     * @throws DBException
+     */
     private String getPdf(long paymentId) throws DocumentException, IOException, DBException {
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
 

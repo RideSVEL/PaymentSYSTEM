@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * No command.
+ * If user moved on page by nonexistent command.
  *
- * @author D.Kolesnikov
+ * @author S. Vasilchenko
  */
 public class NoCommand extends Command {
 

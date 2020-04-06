@@ -49,6 +49,6 @@
         <input class="btn btn-success shadow-lg" type="submit" value="<fmt:message key="jsp.accept"/>">
     </form>
 </div>
-<%@ include file="/WEB-INF/jspf/footer.jspf" %>
+<%@ include file="/WEB-INF/jspf/scripts.jspf" %>
 </body>
 </html>

@@ -17,6 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Forward from command CHECK_PAYMENT.
+ * IF controller go to this command,
+ * replenish balance confirnimg.
+ * Updated info in DB and return on page with cards.
+ *
+ * @author S. Vasilchenko
+ */
 public class ConfirmBalanceCmd extends Command {
 
     private static final long serialVersionUID = 78542177478505L;

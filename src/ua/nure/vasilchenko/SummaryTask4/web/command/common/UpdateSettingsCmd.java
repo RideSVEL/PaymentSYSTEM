@@ -14,6 +14,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Locale;
 
+/**
+ * Updated settings.
+ * Update firstName and lastName.
+ * Update localization interface.
+ *
+ * @author S. Vasilchenko
+ */
 public class UpdateSettingsCmd extends Command {
 
     private static final String ENGLISH = "English";

@@ -16,7 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-
+/**
+ * Register command.
+ *
+ * @author S. Vasilchenko
+ */
 public class RegisterCmd extends Command {
 
     private static final long serialVersionUID = 3081536593568942473L;

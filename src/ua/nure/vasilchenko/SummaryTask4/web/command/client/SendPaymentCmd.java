@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Command prepared cards for choosing to send payment.
+ *
+ * @author S. Vasilchenko
+ */
 public class SendPaymentCmd extends Command {
 
     private static final long serialVersionUID = 7123121334L;

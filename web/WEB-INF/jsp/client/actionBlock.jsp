@@ -36,7 +36,7 @@
             <%-- CONTENT --%>
 
 
-            <%@ include file="/WEB-INF/jspf/footer.jspf" %>
+            <%@ include file="/WEB-INF/jspf/scripts.jspf" %>
 
 </table>
 </body>

@@ -14,6 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Gets from the page requests.jsp.
+ * Run updating in DB info about card user.
+ * Unblocking card and set request status false.
+ *
+ * @author S. Vasilchenko
+ */
 public class AcceptReqCmd extends Command {
 
     private static final long serialVersionUID = 77288888755558505L;

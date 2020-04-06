@@ -14,6 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Gets from listUser.jsp.
+ * Show all cards for certain user
+ * and forward on page with functions
+ * blocking/unblocking user cards.
+ *
+ * @author S. Vasilchenko
+ */
 public class ShowCardsCmd extends Command {
 
     private static final long serialVersionUID = 7732235467234L;

@@ -15,6 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Command updating status payment on DB.
+ *
+ *
+ * @author S. Vasilchenko
+ */
 public class ConfirmDeferCmd extends Command {
 
     private static final long serialVersionUID = 7854278452505L;

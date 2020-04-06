@@ -12,7 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-
+/**
+ * Gets from the page requests.jsp.
+ * Run updating in DB info about card user.
+ * Reject request on unblocking user`s card.
+ *
+ * @author S. Vasilchenko
+ */
 public class ListUsersCmd extends Command {
 
     private static final long serialVersionUID = 7732289478505L;
@@ -26,9 +32,7 @@ public class ListUsersCmd extends Command {
         // get users list list
         List<User> users = manager.findAllUsersClient();
 
-        //  users.sort((o1, o2) -> (int) (o1.getId() - o2.getId()));
         LOG.trace("Found in DB: usersList --> " + users);
-
         request.setAttribute("users", users);
         LOG.trace("Set the request attribute: users --> " + users);
         int count = manager.countRequestAdmin();

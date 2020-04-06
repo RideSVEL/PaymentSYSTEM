@@ -17,12 +17,23 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Command showing payments with parameters sorting.
+ *
+ * @author S. Vasilchenko
+ */
 public class ShowPaymentsCmd extends Command {
 
     private static final long serialVersionUID = 7732123567234L;
 
     private static final Logger LOG = Logger.getLogger(ShowPaymentsCmd.class);
-
+    /**
+     * Return list payments, only with choosing filter.
+     *
+     * @param payments - list all payments for filtering.
+     * @param filter - for choosing filter.
+     * @return - list payments, only with choosing filter.
+     */
     private List<Payment> filterPayments(List<Payment> payments, String filter) {
         List<Payment> result = new ArrayList<>();
         switch (filter) {
@@ -48,7 +59,14 @@ public class ShowPaymentsCmd extends Command {
         }
         return payments;
     }
-
+    /**
+     * Return list payments, sorted by special parameters.
+     *
+     * @param payments list all Cards for sorting.
+     * @param sorting - type sorting.
+     * @param order - destination sorting.
+     * @return - sorted list cards by type and destination.
+     */
     private List<Payment> sortingPayments(List<Payment> payments, String sorting, String order) {
         switch (sorting) {
             case "date":
