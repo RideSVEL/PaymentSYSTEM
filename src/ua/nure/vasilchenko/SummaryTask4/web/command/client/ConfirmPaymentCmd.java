@@ -14,6 +14,7 @@ import ua.nure.vasilchenko.SummaryTask4.web.command.base.Command;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -41,6 +42,9 @@ public class ConfirmPaymentCmd extends Command {
         String id = (String) request.getSession().getAttribute("card_id");
         String sum = (String) request.getSession().getAttribute("sum");
         String destination = (String) request.getSession().getAttribute("destination");
+        if (id == null || sum == null || destination == null || id.isEmpty() || sum.isEmpty() || destination.isEmpty()) {
+            return Path.COMMAND_USER_PAYMENTS + "&sorting=date&order=ascending&filter=all";
+        }
         String confirm = request.getParameter("confirm");
         LOG.trace("get from session attributes");
         DBManager manager = DBManager.getInstance();
@@ -80,6 +84,10 @@ public class ConfirmPaymentCmd extends Command {
                 e.printStackTrace();
             }
         }
+        HttpSession session = request.getSession();
+        session.setAttribute("card_id", null);
+        session.setAttribute("sum", null);
+        session.setAttribute("destination", null);
         LOG.debug("Command finished");
         return Path.COMMAND_USER_PAYMENTS + "&sorting=date&order=ascending&filter=all";
     }

@@ -14,6 +14,7 @@ import ua.nure.vasilchenko.SummaryTask4.web.command.base.Command;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -41,6 +42,9 @@ public class ConfirmBalanceCmd extends Command {
         }
         String id = (String) request.getSession().getAttribute("card_id");
         String sum = (String) request.getSession().getAttribute("sum");
+        if (id == null || sum == null || id.isEmpty() || sum.isEmpty()) {
+            return Path.COMMAND_USER_CARDS + "&sorting=name&order=ascending&filter=all";
+        }
         LOG.debug("get attributes from session");
         DBManager manager = DBManager.getInstance();
         Card card = manager.findCard(Long.parseLong(id));
@@ -59,6 +63,9 @@ public class ConfirmBalanceCmd extends Command {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        HttpSession session = request.getSession();
+        session.setAttribute("card_id", null);
+        session.setAttribute("sum", null);
         LOG.debug("Command finished");
         return Path.COMMAND_USER_CARDS + "&sorting=name&order=ascending&filter=all";
     }

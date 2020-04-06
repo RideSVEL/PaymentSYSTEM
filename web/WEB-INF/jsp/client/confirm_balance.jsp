@@ -8,6 +8,7 @@
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
 <body>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 <div class="login-page">
     <h2 class="text-light text-uppercase"><fmt:message key="jsp.confirm.action"/>:</h2>
     <br>

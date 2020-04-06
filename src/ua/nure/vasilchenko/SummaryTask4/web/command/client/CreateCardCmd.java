@@ -33,6 +33,10 @@ public class CreateCardCmd extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.debug("Command starts");
         String name = request.getParameter("name");
+        String link = (String) request.getSession().getAttribute("name_link");
+        if (name.equals(link)) {
+            return Path.COMMAND_USER_CARDS;
+        }
         LOG.trace("get from request parameter" + name);
         if (name == null || name.isEmpty()) {
             LOG.trace("fields was empty");
@@ -58,6 +62,7 @@ public class CreateCardCmd extends Command {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        request.getSession().setAttribute("name_link", name);
         LOG.debug("Command finished");
         return Path.COMMAND_USER_CARDS;
 

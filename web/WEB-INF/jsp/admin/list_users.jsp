@@ -21,7 +21,6 @@
 <div id="main-container" class="container">
     <div class="table-responsive">
         <table id="users_table" class="table table-dark table-hover table-striped ">
-            <%--            <thead class="bg-primary">--%>
             <thead class="thead-light">
             <tr>
                 <th scope="col">#</th>
