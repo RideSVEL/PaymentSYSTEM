@@ -40,10 +40,8 @@ public class ConfirmBalanceCmd extends Command {
         if (!user.getPassword().equals(DigestUtils.md5Hex(request.getParameter("password")))) {
             throw new AppException(Messages.YOUR_PASSWORD_DOES_NOT_MATCH);
         }
-        HttpSession session = request.getSession();
-        String id = (String) session.getAttribute("card_id");
-        String sum = (String) session.getAttribute("sum");
-        // protect from redirect from
+        String id = (String) request.getSession().getAttribute("card_id");
+        String sum = (String) request.getSession().getAttribute("sum");
         if (id == null || sum == null || id.isEmpty() || sum.isEmpty()) {
             return Path.COMMAND_USER_CARDS + "&sorting=name&order=ascending&filter=all";
         }
@@ -65,7 +63,7 @@ public class ConfirmBalanceCmd extends Command {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // null for protect by re-direct form
+        HttpSession session = request.getSession();
         session.setAttribute("card_id", null);
         session.setAttribute("sum", null);
         LOG.debug("Command finished");

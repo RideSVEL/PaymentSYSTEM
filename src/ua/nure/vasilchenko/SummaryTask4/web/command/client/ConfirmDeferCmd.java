@@ -31,7 +31,7 @@ public class ConfirmDeferCmd extends Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, AppException {
         LOG.debug("Command starts");
         String id = request.getParameter("payment_id");
-        LOG.trace("get parameter from request" + id);
+        LOG.trace("get parameter from session" + id);
         DBManager manager = DBManager.getInstance();
         if (id == null || id.isEmpty()) {
             throw new AppException(Messages.FIELDS_CANNOT_BE_EMPTY);
