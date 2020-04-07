@@ -98,87 +98,21 @@
                 <div class="card-footer">
                     <c:if test="${card.requestId == 0}">
                         <c:if test="${card.activityId == 0}">
-                            <button type="button" class="btn btn-danger" data-toggle="modal"
-                                    data-target="#exampleModal">
-                                <fmt:message key="jsp.block"/>
-                            </button>
-
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                 aria-labelledby="exampleModalLabel2" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <div class="spinner-border text-primary" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                            <h5 id="exampleModalLabel2" class="modal-title text-uppercase text-dark">
-                                                &nbsp; <fmt:message key="jsp.blocking.card"/></h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="modal-body">
-                                                <p class="text-dark"><fmt:message
-                                                        key="jsp.are_you_confirm_your_action"/></p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    <fmt:message key="jsp.close"/>
-                                                </button>
-                                                <form action="controller" method="post">
-                                                    <input type="hidden" name="command" value="blockUserCard"/>
-                                                    <input type="hidden" name="card_id" value="${card.id}"/>
-                                                    <input class="btn btn-danger" type="submit"
-                                                           value="<fmt:message key="jsp.block"/>"/>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <form action="controller" method="get">
+                                <input type="hidden" name="command" value="actionBlock"/>
+                                <input type="hidden" name="card_id" value="${card.id}"/>
+                                <input class="btn btn-danger" type="submit"
+                                       value="<fmt:message key="jsp.block"/>"/>
+                            </form>
                         </c:if>
                         <c:if test="${card.activityId == 1}">
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#exampleModal2">
-                                <fmt:message key="jsp.unblock.request"/>
-                            </button>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
-                                 aria-labelledby="exampleModalLabel3" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <div class="spinner-border text-primary" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                            <h5 align="center" id="exampleModalLabel3"
-                                                class="modal-title text-uppercase text-dark">
-                                                &nbsp; <fmt:message key="jsp.request_for_admin"/></h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="modal-body">
-                                                <p class="text-dark"><fmt:message
-                                                        key="jsp.are_you_confirm_your_action"/></p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    <fmt:message key="jsp.close"/>
-                                                </button>
-                                                <form action="controller" method="get">
-                                                    <input type="hidden" name="command" value="requestUserCardUnblock"/>
-                                                    <input type="hidden" name="card_id" value="${card.id}"/>
-                                                    <input class="btn btn-success" type="submit"
-                                                           value="<fmt:message key="jsp.unblock.request"/>"/>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div>
+                                <form action="controller" method="post">
+                            <input type="hidden" name="command" value="requestUserCardUnblock"/>
+                            <input type="hidden" name="card_id" value="${card.id}"/>
+                            <input class="btn btn-success" type="submit"
+                                   value="<fmt:message key="jsp.unblock.request"/>"/>
+                                </form>
                             </div>
                         </c:if>
                     </c:if>

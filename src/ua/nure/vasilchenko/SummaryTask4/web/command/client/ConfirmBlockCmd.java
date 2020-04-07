@@ -28,9 +28,9 @@ public class ConfirmBlockCmd extends Command {
 
         String id = request.getParameter("card_id");
         LOG.trace("get parameter card_id" + id);
-        HttpSession session = request.getSession();
-        session.setAttribute("card_id", id);
-        LOG.trace("set attribute card_id" + id);
+
+        request.setAttribute("card_id", id);
+        LOG.trace("set attribute card_block" + id);
 
         LOG.debug("Command finished");
         return Path.PAGE_USER_BLOCK_ACTION;
