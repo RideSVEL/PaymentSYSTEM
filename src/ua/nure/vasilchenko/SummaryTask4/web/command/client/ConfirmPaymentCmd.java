@@ -39,9 +39,11 @@ public class ConfirmPaymentCmd extends Command {
             LOG.debug("password does not match");
             throw new AppException(Messages.YOUR_PASSWORD_DOES_NOT_MATCH);
         }
-        String id = (String) request.getSession().getAttribute("card_id");
-        String sum = (String) request.getSession().getAttribute("sum");
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("card_id");
+        String sum = (String) session.getAttribute("sum");
         String destination = (String) request.getSession().getAttribute("destination");
+        // protect from redirect from
         if (id == null || sum == null || destination == null || id.isEmpty() || sum.isEmpty() || destination.isEmpty()) {
             return Path.COMMAND_USER_PAYMENTS + "&sorting=date&order=ascending&filter=all";
         }
@@ -84,7 +86,7 @@ public class ConfirmPaymentCmd extends Command {
                 e.printStackTrace();
             }
         }
-        HttpSession session = request.getSession();
+        // null for protect by re-direct form
         session.setAttribute("card_id", null);
         session.setAttribute("sum", null);
         session.setAttribute("destination", null);
