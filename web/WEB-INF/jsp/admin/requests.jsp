@@ -13,7 +13,7 @@
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <br><br>
 <c:if test="${countAdmin <= 0}">
-    <p class="requests">Don`t have request`s</p>
+    <p class="requests"><fmt:message key="jsp.dont_have_requests"/></p>
 </c:if>
 <c:if test="${countAdmin > 0}">
 
