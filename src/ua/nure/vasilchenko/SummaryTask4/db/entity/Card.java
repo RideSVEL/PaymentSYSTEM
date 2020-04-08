@@ -7,6 +7,8 @@ package ua.nure.vasilchenko.SummaryTask4.db.entity;
  */
 public class Card extends Entity {
 
+
+
     private long userId;
     private String name;
     private long number;

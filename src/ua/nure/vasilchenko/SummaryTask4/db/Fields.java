@@ -7,6 +7,10 @@ package ua.nure.vasilchenko.SummaryTask4.db;
  */
 public final class Fields {
 
+    private Fields() {
+        throw new IllegalStateException("Util class");
+    }
+
     // entities
     public static final String ENTITY_ID = "id";
 
