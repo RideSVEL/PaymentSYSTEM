@@ -39,6 +39,7 @@ public class Messages {
 	public static final String ERR_CANNOT_INSERT_USER = res.getString("ERR_CANNOT_INSERT_USER");
 	public static final String ERR_CANNOT_INSERT_CARD = res.getString("ERR_CANNOT_INSERT_CARD");
 	public static final String ERR_CANNOT_INSERT_PAYMENT = res.getString("ERR_CANNOT_INSERT_PAYMENT");
+	public static final String EVERYTHING = "Hello! It`s custom tag!";
 
 //	public static final String YOUR_PASSWORD_DOES_NOT_MATCH = res.getString("YOUR_PASSWORD_DOES_NOT_MATCH");
 //	public static final String PAYMENT_DONT_CREATED = res.getString("PAYMENT_DONT_CREATED");

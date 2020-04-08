@@ -2,6 +2,8 @@
 JSTL core tag library.
 ===========================================================================--%> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix = "ct"%>
+<%@ taglib uri="/WEB-INF/own.tld" prefix = "ex"%>
 
 <%--=========================================================================== 
 JSTL functions tag library.
