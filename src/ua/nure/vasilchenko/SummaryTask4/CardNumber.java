@@ -3,7 +3,7 @@ package ua.nure.vasilchenko.SummaryTask4;
 import java.security.SecureRandom;
 
 /**
- * Util class for generating card number.
+ * ua.nure.vasilchenko.SummaryTask4.Util class for generating card number.
  * Using random function and specific prefix.
  *
  * @author S. Vasilchenko

@@ -8,7 +8,7 @@ package ua.nure.vasilchenko.SummaryTask4;
 public final class Path {
 
     private Path() {
-        throw new IllegalStateException("Util class");
+        throw new IllegalStateException("ua.nure.vasilchenko.SummaryTask4.Util class");
     }
 
     // pages

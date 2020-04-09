@@ -8,7 +8,7 @@ package ua.nure.vasilchenko.SummaryTask4.db;
 public final class Fields {
 
     private Fields() {
-        throw new IllegalStateException("Util class");
+        throw new IllegalStateException("ua.nure.vasilchenko.SummaryTask4.Util class");
     }
 
     // entities

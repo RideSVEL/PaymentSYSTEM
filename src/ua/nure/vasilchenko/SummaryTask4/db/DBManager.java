@@ -11,13 +11,12 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * DB manager. Works with MySQL. Only the required DAO methods are
@@ -50,6 +49,59 @@ public final class DBManager {
         return instance;
     }
 
+//    // Uncomment this String to run test.
+//    String connectionUrl;
+//
+//    /**
+//     * Uncomment this method to run test.
+//     * And comment similar bottom method.
+//     * <p>
+//     * This constructor is just for a example run test
+//     * to obtain a DB connection. It does not use a pool
+//     * connections and not used in this project.
+//     * <p>
+//     * Only for tests!
+//     */
+//    private DBManager() {
+//        Properties properties = new Properties();
+//        try {
+//            properties.load(new FileInputStream("test/ua/nure/vasilchenko/SummaryTask4/app.properties"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        synchronized (this) {
+//            connectionUrl = properties.getProperty("connection.url");
+//        }
+//    }
+//
+//    /**
+//     * Uncomment this method to run test.
+//     * And comment similar bottom method.
+//     * <p>
+//     * Returns a DB connection. This method is just for a example run test
+//     * to obtain a DB connection. It does not use a pool
+//     * connections and not used in this project.
+//     * <p>
+//     * Only for test!
+//     *
+//     * @return connection to DB payment.
+//     * @throws SQLException
+//     * @throws DBException
+//     */
+//    public Connection getConnection() throws SQLException, DBException {
+//        try {
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        Connection connection = DriverManager
+//                .getConnection(connectionUrl);
+//        connection
+//                .setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+//        connection.setAutoCommit(false);
+//        return connection;
+//    }
+
     /**
      * Constructor for realization single ton. Read data from context.xml
      *
@@ -66,6 +118,24 @@ public final class DBManager {
             LOG.error(Messages.ERR_CANNOT_OBTAIN_DATA_SOURCE, ex);
             throw new DBException(Messages.ERR_CANNOT_OBTAIN_DATA_SOURCE, ex);
         }
+    }
+
+    /**
+     * Returns a DB connection from the Pool Connections. Before using this
+     * method you must configure the Date Source and the Connections Pool in
+     * your WEB_APP_ROOT/META-INF/context.xml file.
+     *
+     * @return DB connection.
+     */
+    public Connection getConnection() throws DBException, SQLException {
+        Connection con;
+        try {
+            con = ds.getConnection();
+        } catch (SQLException ex) {
+            LOG.error(Messages.ERR_CANNOT_OBTAIN_CONNECTION, ex);
+            throw new DBException(Messages.ERR_CANNOT_OBTAIN_CONNECTION, ex);
+        }
+        return con;
     }
 
 
@@ -104,24 +174,6 @@ public final class DBManager {
             " where card_destination_id in (SELECT id from payment.cards where user_id=?) and status_id=1" +
             " order by date";
 
-
-    /**
-     * Returns a DB connection from the Pool Connections. Before using this
-     * method you must configure the Date Source and the Connections Pool in
-     * your WEB_APP_ROOT/META-INF/context.xml file.
-     *
-     * @return DB connection.
-     */
-    public Connection getConnection() throws DBException {
-        Connection con;
-        try {
-            con = ds.getConnection();
-        } catch (SQLException ex) {
-            LOG.error(Messages.ERR_CANNOT_OBTAIN_CONNECTION, ex);
-            throw new DBException(Messages.ERR_CANNOT_OBTAIN_CONNECTION, ex);
-        }
-        return con;
-    }
 
     // //////////////////////////////////////////////////////////
     // Entity access methods
@@ -424,7 +476,7 @@ public final class DBManager {
      * @return User entity, got from other methods.
      * @throws DBException
      */
-    public User findUserByCardId(int id) throws DBException {
+    public User findUserByCardId(long id) throws DBException {
         LOG.trace("Go to many methods");
         return findUser(findCard(id).getUserId());
     }
