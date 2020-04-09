@@ -98,7 +98,7 @@
                 <div class="card-footer">
                     <c:if test="${card.requestId == 0}">
                         <c:if test="${card.activityId == 0}">
-                            <form action="controller" method="get">
+                            <form action="controller" method="post">
                                 <input type="hidden" name="command" value="actionBlock"/>
                                 <input type="hidden" name="card_id" value="${card.id}"/>
                                 <input class="btn btn-danger" type="submit"
