@@ -35,7 +35,7 @@ public class SearchUserCmd extends Command {
         User user;
         String search = request.getParameter("search");
         if (search == null || search.isEmpty()) {
-            throw new AppException(Messages.NO_SUCH_USER_WITH_THIS_LOGIN + search);
+            throw new AppException(Messages.NO_SUCH_USER_WITH_THIS_LOGIN);
         } else {
             user = DBManager.getInstance().findUserByLogin(search);
         }
@@ -44,7 +44,7 @@ public class SearchUserCmd extends Command {
         if (user != null) {
             users.add(user);
         } else {
-            throw new AppException(Messages.NO_SUCH_USER_WITH_THIS_LOGIN + search);
+            throw new AppException(Messages.NO_SUCH_USER_WITH_THIS_LOGIN);
         }
         LOG.trace("Found in DB: usersList --> " + users);
 
