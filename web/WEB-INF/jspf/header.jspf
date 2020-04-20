@@ -17,7 +17,7 @@
                 <input type="hidden" name="command" value="searchUser"/>
                 <input class="form-control mr-sm-2" type="search"
                        placeholder="<fmt:message key="jsp.header.search_user_by_login"/>"
-                       aria-label="Search" name="search">
+                       aria-label="Search" name="search" value="${searchField}">
                 <input class="btn btn-outline-success mx-auto my-sm-0" type="submit"
                        value="<fmt:message key="jsp.search"/>">
             </form>

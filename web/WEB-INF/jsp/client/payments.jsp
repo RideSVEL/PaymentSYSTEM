@@ -9,7 +9,7 @@
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
 </head>
 <body>
-<c:set var="activePayments" value="active" scope="page" />
+<c:set var="activePayments" value="active" scope="page"/>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <br>
 <c:if test="${sorting == 'date'}">
@@ -39,20 +39,24 @@
         <label>
             <select name="sorting" class="form-control bg-transparent shadow-lg text-white">
                 <option class="bg-dark" ${selectedDate} value="date"><fmt:message key="jsp.sorting.date"/></option>
-                <option class="bg-dark" ${selectedNumber} value="number"><fmt:message key="jsp.sorting.number"/></option>
+                <option class="bg-dark" ${selectedNumber} value="number"><fmt:message
+                        key="jsp.sorting.number"/></option>
             </select>
         </label>
         <label>
             <select name="order" class="form-control bg-transparent shadow-lg text-white">
-                <option class="bg-dark" ${selectedAscending} value="ascending"><fmt:message key="jsp.sorting.ascending"/></option>
-                <option class="bg-dark" ${selectedDescending} value="descending"><fmt:message key="jsp.sorting.descending"/></option>
+                <option class="bg-dark" ${selectedAscending} value="ascending"><fmt:message
+                        key="jsp.sorting.ascending"/></option>
+                <option class="bg-dark" ${selectedDescending} value="descending"><fmt:message
+                        key="jsp.sorting.descending"/></option>
             </select>
         </label>
         <label>
             <select name="filter" class="form-control bg-transparent shadow-lg text-white">
                 <option class="bg-dark" ${selectedAll} value="all"><fmt:message key="jsp.sorting.all"/></option>
                 <option class="bg-dark" ${selectedSend} value="send"><fmt:message key="jsp.sorting.send"/></option>
-                <option class="bg-dark" ${selectedPrepared} value="prepared"><fmt:message key="jsp.sorting.prepared"/></option>
+                <option class="bg-dark" ${selectedPrepared} value="prepared"><fmt:message
+                        key="jsp.sorting.prepared"/></option>
             </select>
         </label>
         <input class="btn btn-info shadow-lg" type="submit" value="<fmt:message key="jsp.sort"/>">
