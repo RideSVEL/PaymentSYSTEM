@@ -58,6 +58,7 @@ public class CommandContainer {
         commands.put("acceptRequest", new AcceptReqCmd());
         commands.put("rejectRequest", new RejectReqCmd());
         commands.put("searchUser", new SearchUserCmd());
+        commands.put("createSelectionPayment", new CreateSelectionPayment());
 
         LOG.debug("Command container was successfully initialized");
         LOG.trace("Number of commands --> " + commands.size());

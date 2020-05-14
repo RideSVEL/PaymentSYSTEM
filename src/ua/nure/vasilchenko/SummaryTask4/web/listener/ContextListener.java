@@ -40,18 +40,18 @@ public class ContextListener implements ServletContextListener {
      *
      * @param servletContext
      */
-    private void initLog4J(ServletContext servletContext) {
-        log("Log4J initialization started");
-        try {
-            PropertyConfigurator.configure(
-                    servletContext.getRealPath("WEB-INF/log4j.properties"));
-            LOG.debug("Log4j has been initialized");
-        } catch (Exception ex) {
-            log("Cannot configure Log4j");
-            ex.printStackTrace();
+        private void initLog4J(ServletContext servletContext) {
+            log("Log4J initialization started");
+            try {
+                PropertyConfigurator.configure(
+                        servletContext.getRealPath("WEB-INF/log4j.properties"));
+                LOG.debug("Log4j has been initialized");
+            } catch (Exception ex) {
+                log("Cannot configure Log4j");
+                ex.printStackTrace();
+            }
+            log("Log4J initialization finished");
         }
-        log("Log4J initialization finished");
-    }
 
     private void localesInit(ServletContext servletContext) {
         String localesFileName = servletContext.getInitParameter("locales");

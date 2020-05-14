@@ -96,7 +96,7 @@
             <param-name>admin</param-name>
             <param-value>listUsers showCards blockUser unblockUser
                 blockCard unblockCard showRequests acceptRequest
-                rejectRequest searchUser</param-value>
+                rejectRequest searchUser createSelectionPayment</param-value>
         </init-param>
         <init-param>
             <param-name>client</param-name>

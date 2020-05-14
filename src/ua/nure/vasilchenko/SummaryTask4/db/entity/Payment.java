@@ -11,6 +11,20 @@ public class Payment extends Entity {
     long cardDestinationNumber;
     int balance;
 
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "cardId=" + cardId +
+                ", cardDestinationId=" + cardDestinationId +
+                ", date='" + date + '\'' +
+                ", money=" + money +
+                ", statusId=" + statusId +
+                ", cardNumber=" + cardNumber +
+                ", cardDestinationNumber=" + cardDestinationNumber +
+                ", balance=" + balance +
+                '}';
+    }
+
     public int getBalance() {
         return balance;
     }

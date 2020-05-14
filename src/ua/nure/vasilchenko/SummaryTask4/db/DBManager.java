@@ -173,6 +173,8 @@ public final class DBManager {
     private static final String SQL_USER_INCOME = "select * from payment.payments" +
             " where card_destination_id in (SELECT id from payment.cards where user_id=?) and status_id=1" +
             " order by date";
+    private static final String SQL_CREATE_SELECTION_BY_DATE = "select * from payment.payments where DATE(date) = ?";
+
 
 
     // //////////////////////////////////////////////////////////
@@ -207,6 +209,32 @@ public final class DBManager {
         } finally {
             close(con);
         }
+    }
+
+    public List<Payment> getPaymentsByDate(String date) throws DBException {
+        List<Payment> payments = new ArrayList<>();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Connection con = null;
+        try {
+            con = getConnection();
+            stmt = con.prepareStatement(SQL_CREATE_SELECTION_BY_DATE);
+            LOG.trace("Get prepared: " + stmt);
+            stmt.setString(1, date);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                payments.add(extractPayment(rs));
+            }
+            con.commit();
+            LOG.trace("Commit connection " + con);
+        } catch (SQLException | DBException ex) {
+            rollback(con);
+            LOG.error(Messages.ERR_CANNOT_FIND_ALL_PAYMENTS, ex);
+            throw new DBException(Messages.ERR_CANNOT_FIND_ALL_PAYMENTS, ex);
+        } finally {
+            close(con, stmt, rs);
+        }
+        return payments;
     }
 
     /**

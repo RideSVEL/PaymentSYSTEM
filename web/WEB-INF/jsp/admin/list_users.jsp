@@ -13,12 +13,23 @@
 <head>
     <title><fmt:message key="jsp.header.users"/></title>
     <%@ include file="/WEB-INF/jspf/head.jspf" %>
+    <script type="text/javascript" src="script/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="script/jquery-ui.js"></script>
 </head>
 <body>
 <c:set var="activeUsers" value="active" scope="page" />
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <br><br>
 <div id="main-container" class="container">
+    <form class="form-inline" action="controller" method="post">
+    <input type="hidden" name="command" value="createSelectionPayment"/>
+    <input class="form-control mr-sm-2" type="date"
+           placeholder="Enter your date"
+           aria-label="selection" name="selection" id="selection">
+    <input class="btn btn-success" type="submit"
+           value="SELECTION">
+    </form>
+    <br><br>
     <div class="table-responsive">
         <table id="users_table" class="table table-dark table-hover table-striped ">
             <thead class="thead-light">

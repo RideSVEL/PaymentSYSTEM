@@ -13,11 +13,23 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <c:if test="${userRole.name == 'admin'}">
+            <script>
+                $( function() {
+                    var users = [
+                        <c:forEach items="${requestScope.users}" var="user">
+                        "${user}",
+                        </c:forEach>
+                    ];
+                    $( "#searching" ).autocomplete({
+                        source: users
+                    });
+                } );
+            </script>
             <form class="form-inline mx-auto my-lg-0" action="controller" method="post">
                 <input type="hidden" name="command" value="searchUser"/>
                 <input class="form-control mr-sm-2" type="search"
                        placeholder="<fmt:message key="jsp.header.search_user_by_login"/>"
-                       aria-label="Search" name="search" value="${searchField}">
+                       aria-label="Search" name="search" id="searching" value="${searchField}">
                 <input class="btn btn-outline-success mx-auto my-sm-0" type="submit"
                        value="<fmt:message key="jsp.search"/>">
             </form>
